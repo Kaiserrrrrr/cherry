@@ -108,14 +108,14 @@
                 const metaDesc = document.createElement('meta');
                 metaDesc.name = "description";
                 metaDesc.content = document.title ? `${document.title} - Explore our high-performance, accessible web content.` : "Optimized web page providing quality user experience and accessible information.";
-                head.appendChild(metaDesc);
+                document.head.appendChild(metaDesc);
             }
 
             if (!document.querySelector('meta[name="robots"]')) {
                 const metaRobots = document.createElement('meta');
                 metaRobots.name = "robots";
                 metaRobots.content = "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
-                head.appendChild(metaRobots);
+                document.head.appendChild(metaRobots);
             }
 
             let vp = document.querySelector('meta[name="viewport"]');
