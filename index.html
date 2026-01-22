@@ -84,26 +84,27 @@
 
     <script>
         const btn = document.getElementById('run-cherry');
-        const status = document.getElementById('status');
+const status = document.getElementById('status');
 
-        btn.addEventListener('click', () => {
-            if (status.innerText === "INACTIVE") {
-                if (window.Cherry) {
-                    window.Cherry.init();
-                    
-                    status.innerText = "Active";
-                    status.className = "status-pill on";
-                    btn.innerText = "Reset Page (Reload)";
-                    
-                    document.querySelectorAll('.fix-label').forEach(el => el.style.display = 'none');
-                    document.querySelectorAll('img').forEach(el => el.style.border = 'none');
-                } else {
-                    console.error("Cherry.js not found. Check your file path.");
-                }
-            } else {
-                window.location.reload();
-            }
-        });
+btn.addEventListener('click', () => {
+    // .toUpperCase() ensures the check works regardless of how you typed the HTML
+    if (status.innerText.toUpperCase() === "INACTIVE") {
+        if (window.Cherry) {
+            window.Cherry.init();
+            
+            status.innerText = "Active";
+            status.className = "status-pill on";
+            btn.innerText = "Reset Page (Reload)";
+            
+            document.querySelectorAll('.fix-label').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('img').forEach(el => el.style.border = 'none');
+        } else {
+            console.error("Cherry.js loaded, but window.Cherry is missing");
+        }
+    } else {
+        window.location.reload();
+    }
+});
     </script>
 </body>
 </html>
