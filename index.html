@@ -1,146 +1,170 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>cherry.js</title>
+    <title>Cherry.js</title>
     
+    <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/main/dist/blossom.css">
+
     <script>
 
-        // --- 2. TOGGLE LOGIC (Global Scope Safe) ---
         const urlParams = new URLSearchParams(window.location.search);
-        
-        // We attach this to 'window' to prevent ReferenceErrors in other scripts
         window.cherryEnabled = urlParams.get('cherry') === 'true';
 
         if (window.cherryEnabled) {
             const s = document.createElement('script');
-            // Root-relative path to your script
             s.src = "dist/cherry.js"; 
             document.head.appendChild(s);
         }
     </script>
 
     <style>
-        body { 
-            background: #ffffff; 
-            color: #d1d1d1; 
-            font-family: serif; 
-            margin: 0; 
-            padding-bottom: 150px; 
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
         }
-        
-        /* The Control Panel UI */
-        #demo-hud {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #111;
-            color: #fff;
-            padding: 20px;
-            border-top: 5px solid #ff0000;
-            font-family: sans-serif;
-            z-index: 99999;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        .hero h2 {
+            color: #333; /* Readable heading */
+            margin-bottom: 10px;
         }
 
-        .hud-btn {
-            background: #ff0000;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 4px;
-            margin-top: 10px;
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #eee;
         }
 
-        /* VIOLATION: Layout Shift Trigger */
-        /* Forces the browser to guess the height, causing massive jumps */
-        .cls-trigger {
+        /* VIOLATION: CLS Trap (Width 100% but no Height) */
+        .layout-shift-img {
             width: 100%;
-            height: auto;
+            height: auto; 
+            border-radius: 8px;
+            margin-bottom: 15px;
             display: block;
-            border: 5px solid #ff0000;
         }
 
-        /* VIOLATION: Tiny Touch Targets */
-        .tiny-btn {
-            width: 8px;
-            height: 8px;
-            padding: 0;
-            border: none;
-            background: red;
+        /* VIOLATION: Tiny Buttons */
+        .icon-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            color: #999;
+            cursor: pointer;
+        }
+
+        /* UI Control Pill */
+        #cherry-control {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 9999;
+            font-family: sans-serif;
+        }
+        .status-dot {
+            height: 10px;
+            width: 10px;
+            background-color: #ff4444;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .toggle-link {
+            color: #fff;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <div id="demo-hud">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div>
-                <strong>CHERRY STATUS: </strong>
-                <span id="hud-status" style="color: #ff0000; font-weight:bold;">INACTIVE</span>
-            </div>
-            <button id="hud-toggle" class="hud-btn">ENABLE PATCH</button>
+    <div id="cherry-control">
+        <div style="display:flex; align-items:center; gap:8px;">
+            <span id="status-dot" class="status-dot"></span>
+            <span id="status-text" style="font-weight:bold; font-size:14px;">Inactive</span>
         </div>
+        <div style="width:1px; height:15px; background:#444;"></div>
+        <span id="toggle-trigger" class="toggle-link">Enable Patch</span>
     </div>
 
-    <main>
-        <section>
-            <h2>Performance: Cumulative Layout Shift</h2>
-            <p>The image below has no dimensions. It will push content down explicitly.</p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg" class="cls-trigger">
-        </section>
+    <div class="hero">
+        <div style="font-size: 3rem; font-weight: bold; color: #333;">Beautiful. Broken.</div>
+        <p style="font-size: 1.2rem; font-weight: 300;">This page looks perfect, but bots hate it.</p>
+    </div>
 
-        <section>
-            <h2>Accessibility: Critical Failures</h2>
+    <div class="grid-container">
+        
+        <div class="card">
+            <h3 style="color:#333; margin-top:0;">Visual Media</h3>
+            <p>This image lacks HTML dimensions. Watch the layout jump when it loads.</p>
             
-            <p>1. Tabindex Abuse (Breaks Keyboard Nav):</p>
-            <button tabindex="5">I trap focus (Index 5)</button>
-            <button tabindex="1">I hijack focus (Index 1)</button>
-
-            <p>2. Duplicate IDs (Invalid HTML):</p>
-            <input type="text" id="bad-id" placeholder="Input A (ID: bad-id)">
-            <input type="text" id="bad-id" placeholder="Input B (ID: bad-id)">
-
-            <p>3. Missing Labels & Tiny Targets:</p>
-            <input type="checkbox"> <span>Agree to nothing</span>
-            <br><br>
-            <button class="tiny-btn" title="Invisible Action"></button>
-        </section>
-
-        <section>
-            <h2>Best Practices & Security</h2>
+            <img src="https://picsum.photos/id/42/600/400" class="layout-shift-img">
             
-            <p>Unsafe External Links:</p>
-            <a href="https://example.com" target="_blank">Open Unsafe Link</a>
+            <p>The layout shift penalty is severe.</p>
+        </div>
 
-            <p>Invalid DOM Nesting:</p>
-            <ul>
-                <div style="padding:10px; background:#333;">Illegal DIV inside UL</div>
+        <div class="card">
+            <h3 style="color:#333; margin-top:0;">Subscribe</h3>
+            <p>Minimalist forms often fail audits.</p>
+            
+            <input type="text" placeholder="Email Address..." style="width:100%; padding:10px; border:1px solid #eee; border-radius:6px; margin-bottom:10px;">
+            
+            <button tabindex="2" style="background:#000; color:#fff; padding:10px 20px; border:none; border-radius:6px; width:100%;">Join</button>
+            
+            <div style="margin-top: 15px; display:flex; gap: 10px; align-items:center;">
+                <span style="font-size:12px;">Share:</span>
+                <button class="icon-btn" title="Twitter">x</button>
+                <button class="icon-btn" title="Facebook">f</button>
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1;">
+            <h3 style="color:#333; margin-top:0;">External Resources</h3>
+            <p>Links opening in new tabs create security vulnerabilities if not handled correctly.</p>
+            
+            <a href="https://example.com" target="_blank" style="color: #007bff;">
+                Unsafe Documentation Link &rarr;
+            </a>
+
+            <ul style="margin-top:20px; border-top:1px solid #eee; padding-top:10px;">
+                <div style="padding:5px; background:#f9f9f9; font-size:12px;">Illegal DIV inside UL</div>
                 <li>Valid List Item</li>
             </ul>
-        </section>
-    </main>
+        </div>
+
+    </div>
 
     <script>
-        // --- 3. UI CONTROLLER (Bug-Free) ---
-        const btn = document.getElementById('hud-toggle');
-        const status = document.getElementById('hud-status');
-        const hud = document.getElementById('demo-hud');
+        const trigger = document.getElementById('toggle-trigger');
+        const statusText = document.getElementById('status-text');
+        const dot = document.getElementById('status-dot');
 
-        // Check the global state we set in the <head>
         if (window.cherryEnabled) {
-            status.innerText = "ACTIVE";
-            status.style.color = "#00ff00";
-            hud.style.borderTopColor = "#00ff00";
-            btn.innerText = "DISABLE & BREAK PAGE";
-            btn.style.backgroundColor = "#00ff00";
-            btn.style.color = "#000";
+            statusText.innerText = "Active";
+            dot.style.backgroundColor = "#2ecc71"; 
+            trigger.innerText = "Disable Patch";
         }
 
-        btn.onclick = () => {
+        trigger.onclick = () => {
             const url = new URL(window.location.href);
             if (window.cherryEnabled) {
                 url.searchParams.delete('cherry');
