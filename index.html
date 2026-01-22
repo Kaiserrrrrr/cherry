@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>cherry.js | Semantic Documentation</title>
+    <title>cherry.js | Documentation</title>
     
     <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/main/dist/blossom.css">
 
@@ -17,19 +17,66 @@
     </script>
 
     <style>
-        /* Global alignment logic */
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center; /* This centers the children horizontally */
+            align-items: center; 
             scroll-behavior: smooth;
             width: 100%;
+            background: #fff;
         }
 
-        /* Hero centering */
+        /* Subtle Top-Left Toggle */
+        nav[role="status"] {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            color: #999;
+        }
+
+        nav[role="status"] span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Small status circle */
+        nav[role="status"] i {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ff4444; /* Default Red */
+            display: inline-block;
+        }
+
+        nav[role="status"] button {
+            background: none;
+            border: 1px solid #eee;
+            color: #666;
+            padding: 4px 8px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 10px;
+            transition: all 0.2s ease;
+        }
+
+        nav[role="status"] button:hover {
+            background: #f5f5f5;
+            border-color: #ddd;
+        }
+
+        /* Hero Centering */
         header {
             min-height: 100vh;
             width: 100%;
@@ -41,115 +88,92 @@
         }
 
         header h1 {
-            font-size: 5rem;
+            font-size: clamp(3rem, 10vw, 6rem);
             margin: 0;
-            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.03em;
         }
 
-        /* Centering the Documentation Block */
+        header p {
+            color: #888;
+            font-weight: 300;
+        }
+
+        /* Content Container */
         article {
-            max-width: 800px;
-            width: 90%; /* Responsive width */
-            margin: 0 auto; /* Ensures it stays in the middle */
-            padding: 4rem 0;
+            max-width: 700px;
+            width: 90%;
+            margin: 0 auto;
+            padding-bottom: 10rem;
         }
 
-        /* Semantic Toggle (The Aside) */
-        aside {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #111;
-            color: #fff;
-            padding: 0.5rem 1.5rem;
-            border-radius: 5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            z-index: 10;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        aside b {
-            color: #ff4444;
+        section {
+            margin-top: 5rem;
         }
 
         footer {
             width: 100%;
             text-align: center;
-            padding: 2rem 0;
-            border-top: 1px solid #eee;
+            padding: 4rem 0;
+            border-top: 1px solid #f0f0f0;
+            font-size: 13px;
+            color: #aaa;
         }
 
-        /* Preformatted code blocks should still look clean */
-        pre {
-            text-align: left; /* Keep code readable */
-        }
+        footer a { color: #666; }
     </style>
 </head>
 <body>
 
+    <nav role="status">
+        <span><i id="status-dot"></i> <span id="status-text">Engine Offline</span></span>
+        <button id="toggle-trigger">Patch System</button>
+    </nav>
+
     <header>
-        <h1>Cherry.js 🍒</h1>
+        <h1>cherry.js</h1>
         <p>A native optimization engine.</p>
     </header>
 
     <article>
         <section>
-            <h2>Overview</h2>
-            <p>Cherry.js is a zero-dependency optimization engine. It monitors the DOM for common technical debt and applies structural patches during browser idle periods.</p>
+            <h2>The Vision</h2>
+            <p>Most performance tools tell you what is wrong. <strong>Cherry.js</strong> fixes it. Built as a classless, zero-config script, it operates on the philosophy of "In-Flight Repair"—patching the DOM while the user is already on the page.</p>
         </section>
 
         
 
         <section>
-            <h2>Quick Start</h2>
-            <p>Paste the following line into your <code>head</code>:</p>
-            <pre><code>&lt;script src="dist/cherry.js"&gt;&lt;/script&gt;</code></pre>
+            <h2>Automated Healing</h2>
+            <p>When the engine is active, it performs the following routines:</p>
+            <ul>
+                <li><strong>Dynamic Contrast:</strong> Scans text elements for WCAG compliance.</li>
+                <li><strong>Semantic Mapping:</strong> Upgrades generic containers to ARIA-compliant landmarks.</li>
+                <li><strong>Resource Prioritization:</strong> Intercepts heavy assets to enforce lazy-loading.</li>
+            </ul>
         </section>
 
         <section>
-            <h2>Core Modules</h2>
-            <details>
-                <summary>Performance Repair</summary>
-                <p>Identifies images missing <code>width</code> or <code>height</code> attributes and injects them to prevent Cumulative Layout Shift (CLS).</p>
-            </details>
-            <details>
-                <summary>Accessibility</summary>
-                <p>Locates icon-only buttons and unlabelled inputs to provide fallback ARIA descriptors.</p>
-            </details>
-            <details>
-                <summary>SEO & Semantics</summary>
-                <p>Ensures a document contains exactly one <code>h1</code> and correctly nested landmark roles.</p>
-            </details>
+            <h2>Implementation</h2>
+            <pre><code>&lt;script src="dist/cherry.js"&gt;&lt;/script&gt;</code></pre>
+            <p>Simply drop the script into your project. No configuration objects or API keys required.</p>
         </section>
     </article>
 
-    <aside>
-        <span>Status: <b id="status-val">Inactive</b></span>
-        <nav>
-            <a id="toggle-trigger" style="color: white; cursor: pointer; text-decoration: underline;">
-                Enable Patch
-            </a>
-        </nav>
-    </aside>
-
     <footer>
-        <p>
-            <a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GitHub Repository</a>
-        </p>
+        <p><a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GitHub Repository</a></p>
         <p>&copy; 2026 cherry.js</p>
     </footer>
 
     <script>
         const trigger = document.getElementById('toggle-trigger');
-        const statusVal = document.getElementById('status-val');
+        const statusText = document.getElementById('status-text');
+        const dot = document.getElementById('status-dot');
 
         if (window.cherryEnabled) {
-            statusVal.innerText = "Active";
-            statusVal.style.color = "#2ecc71"; 
-            trigger.innerText = "Disable Patch";
+            statusText.innerText = "Engine Active";
+            dot.style.backgroundColor = "#2ecc71"; // Green
+            trigger.innerText = "Rollback";
         }
 
         trigger.onclick = () => {
