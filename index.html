@@ -18,50 +18,6 @@
     </script>
 
     <style>
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-        }
-        .hero h2 {
-            color: #333; /* Readable heading */
-            margin-bottom: 10px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border: 1px solid #eee;
-        }
-
-        /* VIOLATION: CLS Trap (Width 100% but no Height) */
-        .layout-shift-img {
-            width: 100%;
-            height: auto; 
-            border-radius: 8px;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        /* VIOLATION: Tiny Buttons */
-        .icon-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: 1px solid #ddd;
-            background: white;
-            color: #999;
-            cursor: pointer;
-        }
 
         /* UI Control Pill */
         #cherry-control {
@@ -96,7 +52,6 @@
     </style>
 </head>
 <body>
-
     <div id="cherry-control">
         <div style="display:flex; align-items:center; gap:8px;">
             <span id="status-dot" class="status-dot"></span>
@@ -105,54 +60,6 @@
         <div style="width:1px; height:15px; background:#444;"></div>
         <span id="toggle-trigger" class="toggle-link">Enable Patch</span>
     </div>
-
-    <div class="hero">
-        <div style="font-size: 3rem; font-weight: bold; color: #333;">Beautiful. Broken.</div>
-        <p style="font-size: 1.2rem; font-weight: 300;">This page looks perfect, but bots hate it.</p>
-    </div>
-
-    <div class="grid-container">
-        
-        <div class="card">
-            <h3 style="color:#333; margin-top:0;">Visual Media</h3>
-            <p>This image lacks HTML dimensions. Watch the layout jump when it loads.</p>
-            
-            <img src="https://picsum.photos/id/42/600/400" class="layout-shift-img">
-            
-            <p>The layout shift penalty is severe.</p>
-        </div>
-
-        <div class="card">
-            <h3 style="color:#333; margin-top:0;">Subscribe</h3>
-            <p>Minimalist forms often fail audits.</p>
-            
-            <input type="text" placeholder="Email Address..." style="width:100%; padding:10px; border:1px solid #eee; border-radius:6px; margin-bottom:10px;">
-            
-            <button tabindex="2" style="background:#000; color:#fff; padding:10px 20px; border:none; border-radius:6px; width:100%;">Join</button>
-            
-            <div style="margin-top: 15px; display:flex; gap: 10px; align-items:center;">
-                <span style="font-size:12px;">Share:</span>
-                <button class="icon-btn" title="Twitter">x</button>
-                <button class="icon-btn" title="Facebook">f</button>
-            </div>
-        </div>
-
-        <div class="card" style="grid-column: 1 / -1;">
-            <h3 style="color:#333; margin-top:0;">External Resources</h3>
-            <p>Links opening in new tabs create security vulnerabilities if not handled correctly.</p>
-            
-            <a href="https://example.com" target="_blank" style="color: #007bff;">
-                Unsafe Documentation Link &rarr;
-            </a>
-
-            <ul style="margin-top:20px; border-top:1px solid #eee; padding-top:10px;">
-                <div style="padding:5px; background:#f9f9f9; font-size:12px;">Illegal DIV inside UL</div>
-                <li>Valid List Item</li>
-            </ul>
-        </div>
-
-    </div>
-
     <script>
         const trigger = document.getElementById('toggle-trigger');
         const statusText = document.getElementById('status-text');
