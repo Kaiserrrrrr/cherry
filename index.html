@@ -1,94 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>cherry.js | Demo</title>
+    <title>The Lighthouse Gauntlet</title>
     
-    <style>
-        /* A11y: Contrast so bad it's almost invisible */
-        body { background: #fff; color: #f2f2f2; font-family: "Times New Roman"; margin: 0; }
-        
-        /* Layout Shift: Force a massive jump after 2 seconds */
-        .shift-box { width: 100%; height: 0; background: red; transition: height 2s; }
-        
-        /* Dashboard Styling */
-        #demo-ui { background: #000; color: #fff; padding: 20px; position: fixed; bottom: 0; width: 100%; z-index: 9999; }
-        
-        /* Best Practises: Fixed position elements that overlap content */
-        .overlay { position: fixed; top: 0; left: 0; width: 50px; height: 50px; background: rgba(0,0,0,0.1); pointer-events: none; }
-    </style>
-
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const active = params.get('cherry') === 'true';
-
-        if (active) {
-            const s = document.createElement('script');
-            s.src = "dist/cherry.js";
-            document.head.appendChild(s);
-        } else {
+        (function() {
             const start = Date.now();
             while (Date.now() - start < 500) { 
+            console.warn("⚠️ Toxic Script: 500ms Main Thread Block.");
+        })();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const cherryIsActive = urlParams.get('cherry') === 'true';
+
+        if (cherryIsActive) {
+            const s = document.createElement('script');
+            s.src = "dist/cherry.js"; 
+            document.head.appendChild(s);
         }
     </script>
+
+    <style>
+        body { color: #f0f0f0; background: #fff; font-family: serif; margin: 0; padding-bottom: 120px; }
+        
+        #cherry-ui { 
+            position: fixed; bottom: 0; width: 100%; background: #1a1a1a; 
+            color: #fff; padding: 25px; border-top: 6px solid #ff3e3e; z-index: 9999;
+            font-family: sans-serif;
+        }
+        .btn { padding: 12px 24px; cursor: pointer; font-weight: bold; border: none; border-radius: 4px; }
+        .btn-off { background: #ff3e3e; color: white; }
+        .btn-on { background: #2ecc71; color: white; }
+        
+        .toxic-img { width: 100%; height: auto; display: block; border: 5px solid #ff3e3e; }
+    </style>
 </head>
 <body>
 
-    <div id="demo-ui">
-        <strong>CHERRY ENGINE: <span id="st" style="color:red">OFF</span></strong> | 
-        <button id="tg" style="cursor:pointer">ACTIVATE PATCH</button>
+    <div id="cherry-ui">
+        <strong>CHERRY STATE: <span id="status-text" style="color:#ff3e3e">OFF</span></strong>
+        <br><br>
+        <button id="toggle-btn" class="btn btn-off">Enable Cherry Patch</button>
     </div>
-
-    <div class="overlay"></div>
 
     <main>
         <section>
-            <h2>Performance: The Shift & The Jank</h2>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg" style="width:100%; height:auto;">
-            <p>This text will be pushed off the screen when the image above loads because there are no height attributes.</p>
+            <h2>Performance: Massive CLS</h2>
+            <p>These images lack width/height. They will push the entire page down mid-load.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg" class="toxic-img">
+            <img src="https://picsum.photos/id/237/1200/800" class="toxic-img">
         </section>
 
         <section>
-            <h2>Accessibility: The Barrier</h2>
-            <button tabindex="5">I break the tab order</button>
-            <button tabindex="1">I am first but at the bottom</button>
+            <h2>Accessibility: The Red Zone</h2>
+            <button tabindex="2">I break focus flow</button>
+            <button tabindex="1">I hijack focus</button>
             
-            <p>Hidden form fields with no IDs:</p>
-            <input type="text" placeholder="Invisible Label">
+            <p>Form fields with no labels (A11y Error):</p>
+            <input type="text" placeholder="Username...">
             
-            <p>Tiny Hit Targets:</p>
-            <a href="#" style="font-size: 5px; display: inline-block;">Small Link</a>
+            <p>Tiny Hit Target (A11y Error):</p>
+            <button style="width:4px; height:4px; padding:0; background:red;" title="Invisible Button"></button>
         </section>
 
         <section>
-            <h2>Best Practises: Security & Trust</h2>
-            <a href="https://example.com" target="_blank">Unsafe Cross-Origin Link</a>
+            <h2>Best Practices & SEO</h2>
+            <a href="https://example.com" target="_blank">External Link (Unsafe)</a>
 
-            <script>
-                if(!active) {
-                    document.write('<meta http-equiv="refresh" content="300">');
-                }
-            </script>
-        </section>
-
-        <section>
-            <h2>Structure: Invalid DOM</h2>
             <ul>
-                <p>I am a paragraph. I don't belong in a UL.</p>
-                <li>I'm just a lonely LI.</li>
+                <div style="padding:10px; background:#ffebee;">Illegal Div inside UL</div>
+                <li>Valid List Item</li>
             </ul>
         </section>
     </main>
 
     <script>
-        const btn = document.getElementById('tg');
-        if (active) {
-            document.getElementById('st').innerText = "ON";
-            document.getElementById('st').style.color = "#00ff00";
-            btn.innerText = "DEACTIVATE";
+        const btn = document.getElementById('toggle-btn');
+        const txt = document.getElementById('status-text');
+        const ui = document.getElementById('cherry-ui');
+
+        if (cherryIsActive) {
+            txt.innerText = "ON";
+            txt.style.color = "#2ecc71";
+            ui.style.borderTopColor = "#2ecc71";
+            btn.innerText = "OFF";
+            btn.className = "btn btn-on";
         }
+
         btn.onclick = () => {
             const u = new URL(window.location.href);
-            active ? u.searchParams.delete('cherry') : u.searchParams.set('cherry', 'true');
+            if (cherryIsActive) {
+                u.searchParams.delete('cherry');
+            } else {
+                u.searchParams.set('cherry', 'true');
+            }
             window.location.href = u.href;
         };
     </script>
