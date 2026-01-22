@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>cherry.js</title>
-    <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/refs/heads/main/dist/blossom.css" type="text/css">
+    <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/main/dist/blossom.css" type="text/css">
     <style>
-    #cherry-dashboard {
+        #cherry-dashboard {
             margin-top: 2rem;
         }
         .status-pill { 
@@ -16,8 +16,9 @@
             text-transform: uppercase; 
             border: 1px solid currentColor; 
         }
-        .off { color: #d9534f; }
+        .off { color: #d9534f; border-color: #d9534f; }
         .on { color: var(--link-color); border-color: var(--link-color); }
+        
         .fix-label { 
             color: #d9534f; 
             font-size: 0.65em; 
@@ -25,7 +26,14 @@
             display: block; 
             margin-bottom: 0.2rem; 
         }
+        img:not([width]) {
+            border: 2px dashed #d9534f;
+        }
     </style>
+
+    <script>window.CHERRY_DEMO_MODE = true;</script>
+    
+    <script src="./dist/cherry.js"></script>
 </head>
 <body>
 
@@ -34,28 +42,31 @@
         <aside id="cherry-dashboard">
             <strong>Cherry Dashboard</strong> 
             <span id="status" class="status-pill off">Inactive</span>
-            <p>The Cherry engine is currently idle. Click below to apply the Cherry Patch</p>
+            <p>The Cherry engine is currently idle. Observe the red error tags below, then click enable Cherry Patch</p>
             <button id="run-cherry">Activate Cherry Patch</button>
         </aside>
     </header>
+
     <main>
         <section>
             <span class="fix-label">Issue: Missing img alt & dimensions (CLS)</span>
             <img src="https://picsum.photos/id/20/500/300">
+            
             <details>
-                <summary>Cherry Performance Insights</summary>
-                <p>Cherry prevents <strong>Cumulative Layout Shift</strong> by auto-calculating image dimensions on the fly.</p>
+                <summary>Performance Audit</summary>
+                <p>Cherry prevents <strong>Cumulative Layout Shift</strong> by auto-calculating image dimensions and applying the <code>loading="lazy"</code> attribute for faster FCP.</p>
             </details>
         </section>
+
         <section>
             <h2>Accessibility & Forms</h2>
             <span class="fix-label">Issue: Orphan Input (No Label)</span>
             <input type="text" placeholder="Subscribe to Cherry updates...">
             
-            <p>Cherry ensures all tap targets meet the 44x44px Lighthouse standard.</p>
+            <p>Lighthouse requires a minimum 44x44px hit area for mobile accessibility.</p>
             <span class="fix-label">Issue: Tap Target Size</span>
             <button style="width:12px; height:12px; padding:0; vertical-align:middle;" title="Search"></button>
-            <small> (Tiny square is the button)</small>
+            <small> (The tiny red-bordered square above is a button)</small>
         </section>
 
         <section>
@@ -70,6 +81,29 @@
             </ul>
         </section>
     </main>
-<script src="./dist/cherry.js"></script>
+
+    <script>
+        const btn = document.getElementById('run-cherry');
+        const status = document.getElementById('status');
+
+        btn.addEventListener('click', () => {
+            if (status.innerText === "INACTIVE") {
+                if (window.Cherry) {
+                    window.Cherry.init();
+                    
+                    status.innerText = "Active";
+                    status.className = "status-pill on";
+                    btn.innerText = "Reset Page (Reload)";
+                    
+                    document.querySelectorAll('.fix-label').forEach(el => el.style.display = 'none');
+                    document.querySelectorAll('img').forEach(el => el.style.border = 'none');
+                } else {
+                    console.error("Cherry.js not found. Check your file path.");
+                }
+            } else {
+                window.location.reload();
+            }
+        });
+    </script>
 </body>
 </html>
