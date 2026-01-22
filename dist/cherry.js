@@ -1,3 +1,9 @@
+/* Cherry.js v1.0.0
+ * ================
+ * Semantic js script for frontend optimization
+ * Project: https://github.com/Kaiserrrrrr/cherry
+ */
+
 (function() {
     'use strict';
 
