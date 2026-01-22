@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>cherry.js | Documentation</title>
+    <title>cherry.js | Semantic Documentation</title>
     
     <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/main/dist/blossom.css">
 
@@ -17,16 +17,22 @@
     </script>
 
     <style>
-        /* Layout logic using only tags */
+        /* Global alignment logic */
         html, body {
             height: 100%;
             margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* This centers the children horizontally */
             scroll-behavior: smooth;
+            width: 100%;
         }
 
-        /* Hero centering using the header tag */
+        /* Hero centering */
         header {
-            height: 100vh;
+            min-height: 100vh;
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -37,16 +43,18 @@
         header h1 {
             font-size: 5rem;
             margin: 0;
+            line-height: 1;
         }
 
-        /* Documentation container */
+        /* Centering the Documentation Block */
         article {
             max-width: 800px;
-            margin: 0 auto;
-            padding: 4rem 1rem;
+            width: 90%; /* Responsive width */
+            margin: 0 auto; /* Ensures it stays in the middle */
+            padding: 4rem 0;
         }
 
-        /* The Toggle Pill (Reimagined as a semantic Aside) */
+        /* Semantic Toggle (The Aside) */
         aside {
             position: fixed;
             bottom: 2rem;
@@ -60,17 +68,23 @@
             align-items: center;
             gap: 1rem;
             z-index: 10;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
         aside b {
-            color: #ff4444; /* Status color */
+            color: #ff4444;
         }
 
-        /* Footer centering */
         footer {
+            width: 100%;
             text-align: center;
-            padding: 2rem;
+            padding: 2rem 0;
             border-top: 1px solid #eee;
+        }
+
+        /* Preformatted code blocks should still look clean */
+        pre {
+            text-align: left; /* Keep code readable */
         }
     </style>
 </head>
@@ -84,8 +98,10 @@
     <article>
         <section>
             <h2>Overview</h2>
-            <p>Cherry.js is a <strong>zero-dependency</strong> healing engine. It monitors the DOM for common technical debt and applies structural patches during browser idle periods.</p>
+            <p>Cherry.js is a zero-dependency optimization engine. It monitors the DOM for common technical debt and applies structural patches during browser idle periods.</p>
         </section>
+
+        
 
         <section>
             <h2>Quick Start</h2>
@@ -100,7 +116,7 @@
                 <p>Identifies images missing <code>width</code> or <code>height</code> attributes and injects them to prevent Cumulative Layout Shift (CLS).</p>
             </details>
             <details>
-                <summary>Accessibility (A11y)</summary>
+                <summary>Accessibility</summary>
                 <p>Locates icon-only buttons and unlabelled inputs to provide fallback ARIA descriptors.</p>
             </details>
             <details>
@@ -118,9 +134,10 @@
             </a>
         </nav>
     </aside>
+
     <footer>
         <p>
-            <a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GitHub</a>
+            <a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GitHub Repository</a>
         </p>
         <p>&copy; 2026 cherry.js</p>
     </footer>
