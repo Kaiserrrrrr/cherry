@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>cherry.js</title>
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/Kaiserrrrrr/blossom/main/dist/blossom.min.css" type="text/css">
+    <style>
+        #cherry-dashboard {
+            margin-top: 2rem;
+        }
+        .status-pill { 
+            float: right; 
+            font-size: 0.6em; 
+            padding: 2px 8px; 
+            border-radius: 3px; 
+            text-transform: uppercase; 
+            border: 1px solid currentColor; 
+        }
+        .off { color: #d9534f; }
+        .on { color: var(--link-color); border-color: var(--link-color); }
+        .fix-label { 
+            color: #d9534f; 
+            font-size: 0.65em; 
+            font-weight: bold; 
+            display: block; 
+            margin-bottom: 0.2rem; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Cherry Optimizer</h1>
+        <aside id="cherry-dashboard">
+            <strong>Cherry Dashboard</strong> 
+            <span id="status" class="status-pill off">Inactive</span>
+            <p>The Cherry engine is currently idle. Click below to apply the Cherry Patch</p>
+            <button id="run-cherry">Activate Cherry Patch</button>
+        </aside>
+    </header>
+    <main>
+        <section>
+            <span class="fix-label">Issue: Missing img alt & dimensions (CLS)</span>
+            <img src="https://picsum.photos/id/20/500/300">
+            <details>
+                <summary>Cherry Performance Insights</summary>
+                <p>Cherry prevents <strong>Cumulative Layout Shift</strong> by auto-calculating image dimensions on the fly.</p>
+            </details>
+        </section>
+        <section>
+            <h2>Accessibility & Forms</h2>
+            <span class="fix-label">Issue: Orphan Input (No Label)</span>
+            <input type="text" placeholder="Subscribe to Cherry updates...">
+            
+            <p>Cherry ensures all tap targets meet the 44x44px Lighthouse standard.</p>
+            <span class="fix-label">Issue: Tap Target Size</span>
+            <button style="width:12px; height:12px; padding:0; vertical-align:middle;" title="Search"></button>
+            <small> (Tiny square is the button)</small>
+        </section>
+
+        <section>
+            <h2>Structure & Security</h2>
+            <span class="fix-label">Issue: External link security</span>
+            <p><a href="https://github.com/Kaiserrrrrr/blossom" target="_blank">View Project on GitHub</a></p>
+            
+            <span class="fix-label">Issue: Illegal list children</span>
+            <ul>
+                <div style="background: rgba(0,0,0,0.05); padding: 5px;">Invalid child: div inside ul</div>
+                <li>Semantic list item</li>
+            </ul>
+        </section>
+    </main>
+<script src="./dist/cherry.js"></script>
+</body>
+</html>
