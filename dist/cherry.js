@@ -147,13 +147,9 @@
         }
     };
 
-    window.Cherry = cherry;
-    
-    if (!window.CHERRY_DEMO_MODE) {
-        if (document.readyState === 'complete') {
-            cherry.init();
-        } else {
-            window.addEventListener('load', () => cherry.init());
-        }
+    if (document.readyState === 'complete') {
+        cherry.init();
+    } else {
+        window.addEventListener('load', () => cherry.init());
     }
 })();
