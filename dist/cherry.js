@@ -52,7 +52,7 @@
 
             document.querySelectorAll('input:not([type="hidden"]), select, textarea').forEach((el, i) => {
                 const cherryName = el.name || el.type || el.placeholder || 'field';
-                const cherryId = el.id || `cherry-${base.toLowerCase().replace(/[^a-z]/g, '')}-${i}`;
+                const cherryId = el.id || `cherry-${cherryName.toLowerCase().replace(/[^a-z]/g, '')}-${i}`;
                 el.id = cherryId;
 
                 if (!document.querySelector(`label[for="${cherryId}"]`)) {
