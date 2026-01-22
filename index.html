@@ -17,143 +17,107 @@
     </script>
 
     <style>
-        :root {
-            --cherry-pink: #ff4d6d;
+        /* Layout logic using only tags */
+        html, body {
+            height: 100%;
+            margin: 0;
+            scroll-behavior: smooth;
         }
 
-        /* Hero Centering */
-        header.hero {
+        /* Hero centering using the header tag */
+        header {
             height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: #fafafa;
         }
 
-        header.hero h1 {
+        header h1 {
             font-size: 5rem;
             margin: 0;
-            line-height: 1;
         }
 
-        header.hero p {
-            font-size: 1.2rem;
-            color: #888; /* VIOLATION: Low contrast */
-            margin-top: 1rem;
-        }
-
-        /* Documentation Layout */
+        /* Documentation container */
         article {
             max-width: 800px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 4rem 1rem;
         }
 
-        section {
-            margin-bottom: 60px;
-        }
-
-        code {
-            background: #f1f1f1;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        pre {
-            background: #1a1a1a;
-            color: #eee;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-        }
-
-        /* Control Pill */
-        #cherry-control {
+        /* The Toggle Pill (Reimagined as a semantic Aside) */
+        aside {
             position: fixed;
-            bottom: 30px;
+            bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
             background: #111;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5rem;
             display: flex;
             align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            z-index: 9999;
-            font-family: sans-serif;
+            gap: 1rem;
+            z-index: 10;
         }
 
-        .status-dot {
-            height: 10px;
-            width: 10px;
-            background-color: #ff4444;
-            border-radius: 50%;
-            display: inline-block;
+        aside b {
+            color: #ff4444; /* Status color */
         }
 
-        .toggle-link {
-            color: #fff;
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
+        /* Footer centering */
         footer {
             text-align: center;
-            padding: 40px;
+            padding: 2rem;
             border-top: 1px solid #eee;
         }
     </style>
 </head>
 <body>
 
-    <header class="hero">
+    <header>
         <h1>Cherry.js 🍒</h1>
         <p>A native optimization engine.</p>
-        <div style="margin-top: 2rem; font-size: 0.9rem; color: #bbb;">Scroll to learn more</div>
     </header>
 
     <article>
-        <section id="introduction">
-            <h2>Introduction</h2>
-            <p><strong>Cherry.js</strong> is a zero-config, "healing" engine designed to fix common Lighthouse audit failures in real-time. It patches accessibility gaps, SEO omissions, and performance bottlenecks without requiring changes to your legacy codebase.</p>
+        <section>
+            <h2>Overview</h2>
+            <p>Cherry.js is a <strong>zero-dependency</strong> healing engine. It monitors the DOM for common technical debt and applies structural patches during browser idle periods.</p>
         </section>
 
-        <section id="installation">
-            <h2>Installation</h2>
-            <p>Include the minified script at the end of your <code>&lt;head&gt;</code> for the best results:</p>
+        <section>
+            <h2>Quick Start</h2>
+            <p>Paste the following line into your <code>head</code>:</p>
             <pre><code>&lt;script src="dist/cherry.js"&gt;&lt;/script&gt;</code></pre>
         </section>
 
-        <section id="features">
-            <h2>What it fixes</h2>
-            <ul>
-                <li><strong>Accessibility:</strong> Automatically generates <code>aria-labels</code>, fixes <code>tabindex</code> abuse, and repairs contrast ratios.</li>
-                <li><strong>Performance:</strong> Forces <code>lazy-loading</code> on off-screen assets and prevents Cumulative Layout Shift (CLS) by injecting missing dimensions.</li>
-                <li><strong>SEO:</strong> Dynamically generates missing <code>H1</code> tags, Meta descriptions, and <code>lang</code> attributes.</li>
-                <li><strong>Best Practices:</strong> Secures <code>target="_blank"</code> links and repairs invalid DOM nesting.</li>
-            </ul>
-        </section>
-
-        <section id="usage">
-            <h2>Usage</h2>
-            <p>Once loaded, Cherry.js initializes an <code>IdleCallback</code>. It waits for the browser to be "bored" before performing DOM surgery, ensuring that it never contributes to Total Blocking Time (TBT).</p>
+        <section>
+            <h2>Core Modules</h2>
+            <details>
+                <summary>Performance Repair</summary>
+                <p>Identifies images missing <code>width</code> or <code>height</code> attributes and injects them to prevent Cumulative Layout Shift (CLS).</p>
+            </details>
+            <details>
+                <summary>Accessibility (A11y)</summary>
+                <p>Locates icon-only buttons and unlabelled inputs to provide fallback ARIA descriptors.</p>
+            </details>
+            <details>
+                <summary>SEO & Semantics</summary>
+                <p>Ensures a document contains exactly one <code>h1</code> and correctly nested landmark roles.</p>
+            </details>
         </section>
     </article>
 
-    <div id="cherry-control">
-        <div style="display:flex; align-items:center; gap:8px;">
-            <span id="status-dot" class="status-dot"></span>
-            <span id="status-text" style="font-weight:bold; font-size:14px;">Inactive</span>
-        </div>
-        <div style="width:1px; height:15px; background:#444;"></div>
-        <span id="toggle-trigger" class="toggle-link">Enable Patch</span>
-    </div>
-
+    <aside>
+        <span>Status: <b id="status-val">Inactive</b></span>
+        <nav>
+            <a id="toggle-trigger" style="color: white; cursor: pointer; text-decoration: underline;">
+                Enable Patch
+            </a>
+        </nav>
+    </aside>
     <footer>
         <p>
             <a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GitHub</a>
@@ -163,12 +127,11 @@
 
     <script>
         const trigger = document.getElementById('toggle-trigger');
-        const statusText = document.getElementById('status-text');
-        const dot = document.getElementById('status-dot');
+        const statusVal = document.getElementById('status-val');
 
         if (window.cherryEnabled) {
-            statusText.innerText = "Active";
-            dot.style.backgroundColor = "#2ecc71"; 
+            statusVal.innerText = "Active";
+            statusVal.style.color = "#2ecc71"; 
             trigger.innerText = "Disable Patch";
         }
 
