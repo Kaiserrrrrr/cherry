@@ -1,46 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cherry Optimized</title>
-    <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/main/dist/blossom.css">
-    <style>
-        body { color: #888; } 
-        .tiny-btn { width: 10px; height: 10px; background: red; border: none; cursor: pointer; }
-        img[width] { outline: 4px solid #2ecc71; }
-        label { color: #2ecc71; font-weight: bold; font-size: 12px; }
-    </style>
+    <meta charset="UTF-8">
+    <title>cherry.js | after</title>
+    <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/main/dist/blossom.css" type="text/css">
     <script src="../dist/cherry.js"></script>
 </head>
 <body>
-    <nav>
-        <a href="before.html">← BACK TO BROKEN VERSION</a>
-    </nav>
-
     <main>
         <section>
-            <h2>Layout Shift Gallery</h2>
-            <p>Cherry will auto-calculate the width/height of this image to prevent CLS.</p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg">
-            <p>The text stayed still!</p>
+            <span class="fix-label">Issue: Missing img alt & dimensions (CLS)</span>
+            <img src="https://picsum.photos/id/20/500/300">
+            <details>
+                <summary>Performance Audit</summary>
+                <p>Cherry prevents <strong>Cumulative Layout Shift</strong> by auto-calculating image dimensions and applying the <code>loading="lazy"</code> attribute for faster FCP.</p>
+            </details>
         </section>
-
         <section>
-            <h2>Accessibility Fixed</h2>
-            <p>Cherry injected hidden labels and unique IDs here:</p>
-            <input type="text" placeholder="First Name">
-            <input type="email" placeholder="Email Address">
+            <h2>Accessibility & Forms</h2>
+            <span class="fix-label">Issue: Orphan Input (No Label)</span>
+            <input type="text" placeholder="Subscribe to Cherry updates...">
             
-            <p>Button was resized to 44x44px hit area:</p>
-            <button class="tiny-btn" title="Delete Everything"></button>
+            <p>Lighthouse requires a minimum 44x44px hit area for mobile accessibility.</p>
+            <span class="fix-label">Issue: Tap Target Size</span>
+            <button style="width:12px; height:12px; padding:0; vertical-align:middle;" title="Search"></button>
+            <small> (The tiny red-bordered square above is a button)</small>
         </section>
-
         <section>
-            <h2>Security & Structure</h2>
-            <a href="https://google.com" target="_blank">Visit Google (Safe: rel="noopener" added)</a>
-
+            <h2>Structure & Security</h2>
+            <span class="fix-label">Issue: External link security</span>
+            <p><a href="https://github.com/Kaiserrrrrr/blossom" target="_blank">View Project on GitHub</a></p>
+            
+            <span class="fix-label">Issue: Illegal list children</span>
             <ul>
-                <div style="padding: 10px; background: #eee;">I was a div, now I am wrapped in an LI.</div>
-                <li>I am a lonely list item.</li>
+                <div style="background: rgba(0,0,0,0.05); padding: 5px;">Invalid child: div inside ul</div>
+                <li>Semantic list item</li>
             </ul>
         </section>
     </main>
