@@ -1,100 +1,168 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>cherry.js | demo</title>
+    <title>cherry.js</title>
     
     <script>
+      
         (function() {
             const start = Date.now();
-            while (Date.now() - start < 500) { 
-            console.warn("⚠️ Toxic Script: 500ms Main Thread Block.");
+            while (Date.now() - start < 600) { /* BLOCKING UI */ }
+            console.warn("⚠️ Toxic Script: Main thread frozen for 600ms.");
         })();
 
+        // --- 2. TOGGLE LOGIC (Global Scope Safe) ---
         const urlParams = new URLSearchParams(window.location.search);
-        const cherryIsActive = urlParams.get('cherry') === 'true';
+        
+        // We attach this to 'window' to prevent ReferenceErrors in other scripts
+        window.cherryEnabled = urlParams.get('cherry') === 'true';
 
-        if (cherryIsActive) {
+        if (window.cherryEnabled) {
             const s = document.createElement('script');
+            // Root-relative path to your script
             s.src = "dist/cherry.js"; 
             document.head.appendChild(s);
         }
     </script>
 
     <style>
-        body { color: #f0f0f0; background: #fff; font-family: serif; margin: 0; padding-bottom: 120px; }
-        
-        #cherry-ui { 
-            position: fixed; bottom: 0; width: 100%; background: #1a1a1a; 
-            color: #fff; padding: 25px; border-top: 6px solid #ff3e3e; z-index: 9999;
-            font-family: sans-serif;
+        /* VIOLATION: Low Contrast (Grey text on white background) */
+        body { 
+            background: #ffffff; 
+            color: #d1d1d1; 
+            font-family: serif; 
+            margin: 0; 
+            padding-bottom: 150px; 
         }
-        .btn { padding: 12px 24px; cursor: pointer; font-weight: bold; border: none; border-radius: 4px; }
-        .btn-off { background: #ff3e3e; color: white; }
-        .btn-on { background: #2ecc71; color: white; }
         
-        .toxic-img { width: 100%; height: auto; display: block; border: 5px solid #ff3e3e; }
+        /* The Control Panel UI */
+        #demo-hud {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #111;
+            color: #fff;
+            padding: 20px;
+            border-top: 5px solid #ff0000;
+            font-family: sans-serif;
+            z-index: 99999;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        }
+
+        .hud-btn {
+            background: #ff0000;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        /* VIOLATION: Layout Shift Trigger */
+        /* Forces the browser to guess the height, causing massive jumps */
+        .cls-trigger {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 5px solid #ff0000;
+        }
+
+        /* VIOLATION: Tiny Touch Targets */
+        .tiny-btn {
+            width: 8px;
+            height: 8px;
+            padding: 0;
+            border: none;
+            background: red;
+        }
     </style>
 </head>
 <body>
 
-    <div id="cherry-ui">
-        <strong>CHERRY STATE: <span id="status-text" style="color:#ff3e3e">OFF</span></strong>
-        <br><br>
-        <button id="toggle-btn" class="btn btn-off">Enable Cherry Patch</button>
+    <div id="demo-hud">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                <strong>CHERRY STATUS: </strong>
+                <span id="hud-status" style="color: #ff0000; font-weight:bold;">INACTIVE (BROKEN)</span>
+                <div style="font-size: 12px; opacity: 0.7; margin-top: 5px;">
+                    Current State: High CLS, TBT > 500ms, A11y Failures.
+                </div>
+            </div>
+            <button id="hud-toggle" class="hud-btn">ENABLE PATCH</button>
+        </div>
     </div>
 
     <main>
         <section>
-            <h2>Performance: Massive CLS</h2>
-            <p>These images lack width/height. They will push the entire page down mid-load.</p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg" class="toxic-img">
-            <img src="https://picsum.photos/id/237/1200/800" class="toxic-img">
+            <h2>Performance: Cumulative Layout Shift</h2>
+            <p>The image below has no dimensions. It will push content down explicitly.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg" class="cls-trigger">
         </section>
 
         <section>
-            <h2>Accessibility: The Red Zone</h2>
-            <button tabindex="2">I break focus flow</button>
-            <button tabindex="1">I hijack focus</button>
+            <h2>Accessibility: Critical Failures</h2>
             
-            <p>Form fields with no labels (A11y Error):</p>
-            <input type="text" placeholder="Username...">
-            
-            <p>Tiny Hit Target (A11y Error):</p>
-            <button style="width:4px; height:4px; padding:0; background:red;" title="Invisible Button"></button>
+            <p>1. Tabindex Abuse (Breaks Keyboard Nav):</p>
+            <button tabindex="5">I trap focus (Index 5)</button>
+            <button tabindex="1">I hijack focus (Index 1)</button>
+
+            <p>2. Duplicate IDs (Invalid HTML):</p>
+            <input type="text" id="bad-id" placeholder="Input A (ID: bad-id)">
+            <input type="text" id="bad-id" placeholder="Input B (ID: bad-id)">
+
+            <p>3. Missing Labels & Tiny Targets:</p>
+            <input type="checkbox"> <span>Agree to nothing</span>
+            <br><br>
+            <button class="tiny-btn" title="Invisible Action"></button>
         </section>
 
         <section>
-            <h2>Best Practices & SEO</h2>
-            <a href="https://example.com" target="_blank">External Link (Unsafe)</a>
+            <h2>Best Practices & Security</h2>
+            
+            <p>Unsafe External Links:</p>
+            <a href="https://example.com" target="_blank">Open Unsafe Link</a>
 
+            <p>Invalid DOM Nesting:</p>
             <ul>
-                <div style="padding:10px; background:#ffebee;">Illegal Div inside UL</div>
+                <div style="padding:10px; background:#333;">Illegal DIV inside UL</div>
                 <li>Valid List Item</li>
             </ul>
         </section>
     </main>
 
     <script>
-        const btn = document.getElementById('toggle-btn');
-        const txt = document.getElementById('status-text');
-        const ui = document.getElementById('cherry-ui');
+        // --- 3. UI CONTROLLER (Bug-Free) ---
+        const btn = document.getElementById('hud-toggle');
+        const status = document.getElementById('hud-status');
+        const hud = document.getElementById('demo-hud');
 
-        if (cherryIsActive) {
-            txt.innerText = "ON";
-            txt.style.color = "#2ecc71";
-            ui.style.borderTopColor = "#2ecc71";
-            btn.innerText = "OFF";
-            btn.className = "btn btn-on";
+        // Check the global state we set in the <head>
+        if (window.cherryEnabled) {
+            status.innerText = "ACTIVE (HEALING)";
+            status.style.color = "#00ff00";
+            hud.style.borderTopColor = "#00ff00";
+            btn.innerText = "DISABLE & BREAK PAGE";
+            btn.style.backgroundColor = "#00ff00";
+            btn.style.color = "#000";
         }
 
         btn.onclick = () => {
-            const u = new URL(window.location.href);
-            if (cherryIsActive) {
-                u.searchParams.delete('cherry');
+            const url = new URL(window.location.href);
+            
+            if (window.cherryEnabled) {
+                // If ON, remove the param to turn it OFF
+                url.searchParams.delete('cherry');
             } else {
-                u.searchParams.set('cherry', 'true');
+                // If OFF, add the param to turn it ON
+                url.searchParams.set('cherry', 'true');
             }
-            window.location.href = u.href;
+            
+            // Reload the page with the new state
+            window.location.href = url.href;
         };
     </script>
 </body>
