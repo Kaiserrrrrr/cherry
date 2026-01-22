@@ -1,110 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>cherry.js</title>
-    <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/main/dist/blossom.css" type="text/css">
+    <title>cherry.js | Demo</title>
+    
     <style>
-        #cherry-dashboard {
-            margin-top: 2rem;
-        }
-        .status-pill { 
-            float: right; 
-            font-size: 0.6em; 
-            padding: 2px 8px; 
-            border-radius: 3px; 
-            text-transform: uppercase; 
-            border: 1px solid currentColor; 
-        }
-        .off { color: #d9534f; border-color: #d9534f; }
-        .on { color: var(--link-color); border-color: var(--link-color); }
+        /* A11y: Contrast so bad it's almost invisible */
+        body { background: #fff; color: #f2f2f2; font-family: "Times New Roman"; margin: 0; }
         
-        .fix-label { 
-            color: #d9534f; 
-            font-size: 0.65em; 
-            font-weight: bold; 
-            display: block; 
-            margin-bottom: 0.2rem; 
-        }
-        img:not([width]) {
-            border: 2px dashed #d9534f;
-        }
+        /* Layout Shift: Force a massive jump after 2 seconds */
+        .shift-box { width: 100%; height: 0; background: red; transition: height 2s; }
+        
+        /* Dashboard Styling */
+        #demo-ui { background: #000; color: #fff; padding: 20px; position: fixed; bottom: 0; width: 100%; z-index: 9999; }
+        
+        /* Best Practises: Fixed position elements that overlap content */
+        .overlay { position: fixed; top: 0; left: 0; width: 50px; height: 50px; background: rgba(0,0,0,0.1); pointer-events: none; }
     </style>
 
-    <script>window.CHERRY_DEMO_MODE = true;</script>
-    
-    <script src="dist/cherry.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const active = params.get('cherry') === 'true';
+
+        if (active) {
+            const s = document.createElement('script');
+            s.src = "dist/cherry.js";
+            document.head.appendChild(s);
+        } else {
+            const start = Date.now();
+            while (Date.now() - start < 500) { 
+        }
+    </script>
 </head>
 <body>
 
-    <header>
-        <h1>Cherry Optimizer</h1>
-        <aside id="cherry-dashboard">
-            <strong>Cherry Dashboard</strong> 
-            <span id="status" class="status-pill off">Inactive</span>
-            <p>The Cherry engine is currently idle. Observe the red error tags below, then click enable Cherry Patch</p>
-            <button id="run-cherry">Activate Cherry Patch</button>
-        </aside>
-    </header>
+    <div id="demo-ui">
+        <strong>CHERRY ENGINE: <span id="st" style="color:red">OFF</span></strong> | 
+        <button id="tg" style="cursor:pointer">ACTIVATE PATCH</button>
+    </div>
+
+    <div class="overlay"></div>
 
     <main>
         <section>
-            <span class="fix-label">Issue: Missing img alt & dimensions (CLS)</span>
-            <img src="https://picsum.photos/id/20/500/300">
-            
-            <details>
-                <summary>Performance Audit</summary>
-                <p>Cherry prevents <strong>Cumulative Layout Shift</strong> by auto-calculating image dimensions and applying the <code>loading="lazy"</code> attribute for faster FCP.</p>
-            </details>
+            <h2>Performance: The Shift & The Jank</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg" style="width:100%; height:auto;">
+            <p>This text will be pushed off the screen when the image above loads because there are no height attributes.</p>
         </section>
 
         <section>
-            <h2>Accessibility & Forms</h2>
-            <span class="fix-label">Issue: Orphan Input (No Label)</span>
-            <input type="text" placeholder="Subscribe to Cherry updates...">
+            <h2>Accessibility: The Barrier</h2>
+            <button tabindex="5">I break the tab order</button>
+            <button tabindex="1">I am first but at the bottom</button>
             
-            <p>Lighthouse requires a minimum 44x44px hit area for mobile accessibility.</p>
-            <span class="fix-label">Issue: Tap Target Size</span>
-            <button style="width:12px; height:12px; padding:0; vertical-align:middle;" title="Search"></button>
-            <small> (The tiny red-bordered square above is a button)</small>
+            <p>Hidden form fields with no IDs:</p>
+            <input type="text" placeholder="Invisible Label">
+            
+            <p>Tiny Hit Targets:</p>
+            <a href="#" style="font-size: 5px; display: inline-block;">Small Link</a>
         </section>
 
         <section>
-            <h2>Structure & Security</h2>
-            <span class="fix-label">Issue: External link security</span>
-            <p><a href="https://github.com/Kaiserrrrrr/blossom" target="_blank">View Project on GitHub</a></p>
-            
-            <span class="fix-label">Issue: Illegal list children</span>
+            <h2>Best Practises: Security & Trust</h2>
+            <a href="https://example.com" target="_blank">Unsafe Cross-Origin Link</a>
+
+            <script>
+                if(!active) {
+                    document.write('<meta http-equiv="refresh" content="300">');
+                }
+            </script>
+        </section>
+
+        <section>
+            <h2>Structure: Invalid DOM</h2>
             <ul>
-                <div style="background: rgba(0,0,0,0.05); padding: 5px;">Invalid child: div inside ul</div>
-                <li>Semantic list item</li>
+                <p>I am a paragraph. I don't belong in a UL.</p>
+                <li>I'm just a lonely LI.</li>
             </ul>
         </section>
     </main>
 
     <script>
-        const btn = document.getElementById('run-cherry');
-const status = document.getElementById('status');
-
-btn.addEventListener('click', () => {
-    // .toUpperCase() ensures the check works regardless of how you typed the HTML
-    if (status.innerText.toUpperCase() === "INACTIVE") {
-        if (window.Cherry) {
-            window.Cherry.init();
-            
-            status.innerText = "Active";
-            status.className = "status-pill on";
-            btn.innerText = "Reset Page (Reload)";
-            
-            document.querySelectorAll('.fix-label').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('img').forEach(el => el.style.border = 'none');
-        } else {
-            console.error("Cherry.js loaded, but window.Cherry is missing");
+        const btn = document.getElementById('tg');
+        if (active) {
+            document.getElementById('st').innerText = "ON";
+            document.getElementById('st').style.color = "#00ff00";
+            btn.innerText = "DEACTIVATE";
         }
-    } else {
-        window.location.reload();
-    }
-});
+        btn.onclick = () => {
+            const u = new URL(window.location.href);
+            active ? u.searchParams.delete('cherry') : u.searchParams.set('cherry', 'true');
+            window.location.href = u.href;
+        };
     </script>
 </body>
 </html>
