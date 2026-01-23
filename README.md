@@ -4,7 +4,7 @@
 
 Cherry.js is a "healing" library designed to bridge the gap between semantic design and technical performance. It identifies common accessibility gaps, SEO omissions, and performance bottlenecks (like Cumulative Layout Shift) and patches them at runtime during browser idle periods.
 
-## ❓ Why Cherry?
+## 🌟 Why Cherry?
 
 In modern web development, there is often a massive gap between a **beautiful design** and a **technically sound** document. Even with a perfect CSS framework it is easy to forget a single `alt` tag, a `width` attribute, or a proper heading hierarchy.
 
