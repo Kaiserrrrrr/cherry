@@ -42,8 +42,7 @@ Cherry.js is the definitive technical companion for **[Blossom.css](https://gith
 ---
 
 ## 📜 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+&copy; Cherry 2026. Code released under the [MIT license](https://github.com/Kaiserrrrrr/cherry/blob/master/LICENSE).
 
 ---
 Built with 🍒 and Blossom.
