@@ -17,42 +17,56 @@
     </script>
 
     <style>
+        /* 1. LOCK THE VIEWPORT */
+        :root {
+            /* Prevent font-swap shifts by using a consistent line-height */
+            line-height: 1.5;
+        }
+
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
+            /* Grid is more stable for CLS than Flex */
+            display: grid;
+            grid-template-columns: 100%;
+            justify-items: center;
             background-color: var(--bg-color);
             color: var(--text-color);
-            overflow-x: hidden;
         }
+
+        /* 2. HEADER STABILITY */
         header {
             width: 100%;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            height: 100dvh; /* Force exact height immediately */
+            display: grid;
+            place-content: center;
             text-align: center;
-            contain: size layout; 
+            /* Tells browser this block's size is independent of its children */
+            contain: strict; 
         }
 
         header h1 {
-            font-size: clamp(4rem, 15vw, 8rem);
+            /* Use a fixed em or px for the big title to prevent 'clamp' jitter */
+            font-size: 8rem; 
             margin: 0;
-            line-height: 1.1;
+            line-height: 1;
+            /* Prevent shifting if the emoji takes longer to load */
+            min-height: 1em; 
         }
 
+        /* 3. CONTENT STABILITY */
         article {
+            /* Use Blossom's width but enforce centering */
             width: 90%;
             max-width: 38em; 
-            margin: 0 auto; 
-            padding: 4rem 0 8rem 0;
-            min-height: 400px; 
+            margin: 0 auto;
+            padding: 4rem 0;
+            /* Reserve space so the footer doesn't snap up and down */
+            min-height: 50vh;
         }
 
+        /* 4. TOGGLE STABILITY */
         nav[role="status"] {
             position: fixed;
             top: 2rem;
@@ -62,11 +76,8 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            pointer-events: none; 
-        }
-
-        nav[role="status"] * {
-            pointer-events: auto;
+            /* Ensure the toggle doesn't contribute to layout calculation */
+            contain: content;
         }
 
         nav[role="status"] i {
@@ -93,9 +104,11 @@
     </nav>
 
     <header>
-        <h1>cherry.js 🍒</h1>
+        <h1>cherry.js</h1>
         <p>A native optimization engine.</p>
     </header>
+
+    
 
     <article>
         <section>
@@ -103,16 +116,10 @@
             <p>Cherry.js is a zero-dependency healing engine designed to bridge the gap between semantic design and technical performance.</p>
         </section>
 
-        
-
         <section>
             <h2>Quick Start</h2>
-            <pre><code>&lt;script src="dist/cherry.js"&gt;&lt;/script&gt;</code></pre>
+            <pre><code>&lt;script src="https://raw.githack.com/Kaiserrrrrr/cherry/main/dist/cherry.js"&gt;&lt;/script&gt;</code></pre>
         </section>
-
-        <aside>
-            Note: This site automatically adjusts to your preferred system color scheme using Blossom's native dark mode support.
-        </aside>
     </article>
 
     <footer>
