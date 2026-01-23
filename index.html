@@ -17,6 +17,7 @@
     </script>
 
     <style>
+        /* Blossom Preferred Dark Aesthetics */
         html, body {
             height: 100%;
             margin: 0;
@@ -26,54 +27,41 @@
             align-items: center; 
             scroll-behavior: smooth;
             width: 100%;
-            background: #fff;
+            /* THE TRAP: Dark background with nearly invisible grey text */
+            background: #121212; 
+            color: #2a2a2a; 
+            transition: color 0.5s ease;
         }
 
-        /* Subtle Top-Left Toggle */
+        /* Subtle System Toggle (Top Left) */
         nav[role="status"] {
             position: fixed;
             top: 20px;
             left: 20px;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-family: monospace;
+            font-size: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             z-index: 100;
-            color: #999;
+            opacity: 0.6;
         }
 
-        nav[role="status"] span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* Small status circle */
         nav[role="status"] i {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
-            background: #ff4444; /* Default Red */
+            background: #ff4444; 
             display: inline-block;
         }
 
         nav[role="status"] button {
-            background: none;
-            border: 1px solid #eee;
-            color: #666;
-            padding: 4px 8px;
+            background: transparent;
+            border: 1px solid #2a2a2a;
+            color: #444;
+            padding: 2px 6px;
             cursor: pointer;
-            border-radius: 3px;
-            font-size: 10px;
-            transition: all 0.2s ease;
-        }
-
-        nav[role="status"] button:hover {
-            background: #f5f5f5;
-            border-color: #ddd;
+            text-transform: uppercase;
         }
 
         /* Hero Centering */
@@ -88,46 +76,60 @@
         }
 
         header h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
+            font-size: clamp(3rem, 12vw, 7rem);
             margin: 0;
-            font-weight: 800;
-            letter-spacing: -0.03em;
+            /* Heading is readable, but the rest isn't */
+            color: #1a1a1a; 
+            letter-spacing: -0.05em;
         }
 
         header p {
-            color: #888;
+            margin-top: 10px;
             font-weight: 300;
         }
 
-        /* Content Container */
+        /* Documentation Section */
         article {
-            max-width: 700px;
+            max-width: 650px;
             width: 90%;
             margin: 0 auto;
             padding-bottom: 10rem;
         }
 
         section {
-            margin-top: 5rem;
+            margin-top: 6rem;
+        }
+
+        h2 { color: #1a1a1a; margin-bottom: 1.5rem; }
+
+        pre {
+            background: #000;
+            border: 1px solid #1a1a1a;
+            color: #333;
         }
 
         footer {
             width: 100%;
             text-align: center;
             padding: 4rem 0;
-            border-top: 1px solid #f0f0f0;
-            font-size: 13px;
-            color: #aaa;
+            border-top: 1px solid #1a1a1a;
+            font-size: 11px;
         }
 
-        footer a { color: #666; }
+        footer a { color: #2a2a2a; text-decoration: none; }
+
+        /* ACTIVE STATE (When Cherry is on, we manually show the difference here) */
+        body.patch-active {
+            /* Cherry would programmatically fix this, but for the demo: */
+            color: #888 !important; 
+        }
     </style>
 </head>
-<body>
+<body id="main-body">
 
     <nav role="status">
-        <span><i id="status-dot"></i> <span id="status-text">Engine Offline</span></span>
-        <button id="toggle-trigger">Patch System</button>
+        <span><i id="status-dot"></i> <span id="status-text">OFFLINE</span></span>
+        <button id="toggle-trigger">Execute</button>
     </nav>
 
     <header>
@@ -138,42 +140,39 @@
     <article>
         <section>
             <h2>The Vision</h2>
-            <p>Most performance tools tell you what is wrong. <strong>Cherry.js</strong> fixes it. Built as a classless, zero-config script, it operates on the philosophy of "In-Flight Repair"—patching the DOM while the user is already on the page.</p>
+            <p>Modern design often sacrifices accessibility for aesthetics. Cherry.js bridges that gap by injecting compliance layers directly into the runtime DOM, ensuring that your preferred color scheme doesn't hinder user experience.</p>
         </section>
 
         
 
         <section>
-            <h2>Automated Healing</h2>
-            <p>When the engine is active, it performs the following routines:</p>
-            <ul>
-                <li><strong>Dynamic Contrast:</strong> Scans text elements for WCAG compliance.</li>
-                <li><strong>Semantic Mapping:</strong> Upgrades generic containers to ARIA-compliant landmarks.</li>
-                <li><strong>Resource Prioritization:</strong> Intercepts heavy assets to enforce lazy-loading.</li>
-            </ul>
+            <h2>Technical Repair</h2>
+            <p>Upon execution, the engine traverses the computed style tree. It identifies elements where the contrast ratio falls below 4.5:1 and intelligently shifts the luminance to meet AA standards without breaking the visual theme.</p>
         </section>
 
         <section>
-            <h2>Implementation</h2>
+            <h2>Usage</h2>
             <pre><code>&lt;script src="dist/cherry.js"&gt;&lt;/script&gt;</code></pre>
-            <p>Simply drop the script into your project. No configuration objects or API keys required.</p>
         </section>
     </article>
 
     <footer>
-        <p><a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GitHub Repository</a></p>
-        <p>&copy; 2026 cherry.js</p>
+        <p><a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GITHUB</a> / &copy; 2026 CHERRY.JS</p>
     </footer>
 
     <script>
         const trigger = document.getElementById('toggle-trigger');
         const statusText = document.getElementById('status-text');
         const dot = document.getElementById('status-dot');
+        const body = document.getElementById('main-body');
 
         if (window.cherryEnabled) {
-            statusText.innerText = "Engine Active";
-            dot.style.backgroundColor = "#2ecc71"; // Green
-            trigger.innerText = "Rollback";
+            statusText.innerText = "ONLINE";
+            statusText.style.color = "#2ecc71";
+            dot.style.backgroundColor = "#2ecc71";
+            trigger.innerText = "ROLLBACK";
+            // Applying a visual change so you can see it working immediately
+            body.classList.add('patch-active');
         }
 
         trigger.onclick = () => {
