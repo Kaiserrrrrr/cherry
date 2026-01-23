@@ -1,39 +1,126 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cherry.js</title>
     
+    <link rel="preconnect" href="https://raw.githack.com">
     <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/main/dist/blossom.css">
 
+    <style>
+        /* CRITICAL CSS: Inlined to prevent Layout Shift */
+        :root {
+            --bg-color: #f9f9f9; /* Fallback for Blossom Light */
+            --text-color: #4a4a4a;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root { --bg-color: #222222; --text-color: #c9c9c9; }
+        }
+
+        html, body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: grid;
+            grid-template-columns: 100%;
+            justify-items: center;
+        }
+
+        /* Reserve the exact viewport space instantly */
+        header {
+            width: 100%;
+            height: 100dvh; 
+            display: grid;
+            place-content: center;
+            text-align: center;
+            contain: strict; 
+        }
+
+        header h1 {
+            font-size: 8rem; /* Match intended size */
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        article {
+            width: 90%;
+            max-width: 38em;
+            margin: 0 auto;
+            min-height: 50vh; /* Prevents footer snap-up */
+        }
+
+        nav[role="status"] {
+            position: fixed;
+            top: 2rem; left: 2rem;
+            z-index: 1000;
+            font-family: monospace;
+            display: flex; gap: 1rem;
+        }
+
+        /* Hide content until Blossom or Cherry is ready to avoid "Jitter" */
+        body { visibility: visible; opacity: 1; }
+    </style>
+
     <script>
+        // Performance optimization: Load Cherry asynchronously
         const urlParams = new URLSearchParams(window.location.search);
         window.cherryEnabled = urlParams.get('cherry') === 'true';
 
         if (window.cherryEnabled) {
             const s = document.createElement('script');
-            s.src = "dist/cherry.js"; 
+            s.src = "dist/cherry.js";
+            s.async = true; // Don't block the parser
             document.head.appendChild(s);
         }
     </script>
+</head>
+<body>
 
-    <style>
-        /* 1. LOCK THE VIEWPORT */
-        :root {
-            /* Prevent font-swap shifts by using a consistent line-height */
-            line-height: 1.5;
+    <nav role="status">
+        <span><i id="status-dot" style="width:8px; height:8px; border-radius:50%; background:#ff4444; display:inline-block;"></i> <span id="status-text">OFFLINE</span></span>
+        <button id="toggle-trigger">Patch</button>
+    </nav>
+
+    <header>
+        <h1>cherry.js 🍒</h1>
+        <p>A native optimization engine.</p>
+    </header>
+
+    <article>
+        <section>
+            <h2>Performance vs. Repair</h2>
+            <p>Most scripts hurt performance to fix semantics. Cherry.js uses <code>requestIdleCallback</code> to ensure your main thread stays free for user interactions.</p>
+        </section>
+        
+        
+
+        <section>
+            <h2>Quick Start</h2>
+            <pre><code>&lt;script src="dist/cherry.js" async&gt;&lt;/script&gt;</code></pre>
+        </section>
+    </article>
+
+    <footer>
+        <p><a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GitHub</a> &bull; &copy; 2026 cherry.js</p>
+    </footer>
+
+    <script>
+        // Fast UI Update
+        const trigger = document.getElementById('toggle-trigger');
+        if (window.cherryEnabled) {
+            document.getElementById('status-text').innerText = "ONLINE";
+            document.getElementById('status-dot').style.backgroundColor = "#2ecc71";
+            trigger.innerText = "Rollback";
         }
 
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            /* Grid is more stable for CLS than Flex */
-            display: grid;
-            grid-template-columns: 100%;
-            justify-items: center;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
+        trigger.onclick = () => {
+            const url = new URL(window.location.href);
+            window.cherryEnabled ? url.searchParams.delete('cherry') : url.searchParams.set('cherry', 'true');
+            window.location.href = url.href;
+        };
+    </script>
+</body>
+</html>
 
         /* 2. HEADER STABILITY */
         header {
