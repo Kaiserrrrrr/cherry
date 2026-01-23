@@ -17,7 +17,13 @@
     </script>
 
     <style>
-        /* Blossom Preferred Dark Aesthetics */
+        /* Blossom-inspired clean palette */
+        :root {
+            --bg-color: #f4f4f4;
+            --text-color: #1a1a1a;
+            --accent-color: #ff4d6d;
+        }
+
         html, body {
             height: 100%;
             margin: 0;
@@ -27,44 +33,55 @@
             align-items: center; 
             scroll-behavior: smooth;
             width: 100%;
-            /* THE TRAP: Dark background with nearly invisible grey text */
-            background: #121212; 
-            color: #2a2a2a; 
-            transition: color 0.5s ease;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: system-ui, -apple-system, sans-serif;
         }
 
-        /* Subtle System Toggle (Top Left) */
+        /* Subtle Top-Left Toggle */
         nav[role="status"] {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 25px;
+            left: 25px;
             font-family: monospace;
-            font-size: 10px;
+            font-size: 11px;
             display: flex;
             align-items: center;
             gap: 12px;
             z-index: 100;
-            opacity: 0.6;
+        }
+
+        nav[role="status"] span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            letter-spacing: 0.05em;
         }
 
         nav[role="status"] i {
-            width: 5px;
-            height: 5px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: #ff4444; 
+            background: #e74c3c; 
             display: inline-block;
         }
 
         nav[role="status"] button {
-            background: transparent;
-            border: 1px solid #2a2a2a;
-            color: #444;
-            padding: 2px 6px;
+            background: #fff;
+            border: 1px solid #ddd;
+            color: #333;
+            padding: 4px 10px;
             cursor: pointer;
-            text-transform: uppercase;
+            border-radius: 4px;
+            transition: all 0.2s ease;
         }
 
-        /* Hero Centering */
+        nav[role="status"] button:hover {
+            border-color: #bbb;
+            background: #f9f9f9;
+        }
+
         header {
             min-height: 100vh;
             width: 100%;
@@ -76,103 +93,105 @@
         }
 
         header h1 {
-            font-size: clamp(3rem, 12vw, 7rem);
+            font-size: clamp(3.5rem, 12vw, 7rem);
             margin: 0;
-            /* Heading is readable, but the rest isn't */
-            color: #1a1a1a; 
-            letter-spacing: -0.05em;
+            letter-spacing: -0.04em;
+            color: var(--text-color);
         }
 
         header p {
-            margin-top: 10px;
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            opacity: 0.7;
             font-weight: 300;
         }
 
-        /* Documentation Section */
         article {
-            max-width: 650px;
+            max-width: 720px;
             width: 90%;
             margin: 0 auto;
-            padding-bottom: 10rem;
+            padding-bottom: 120px;
         }
 
         section {
-            margin-top: 6rem;
+            margin-top: 80px;
         }
 
-        h2 { color: #1a1a1a; margin-bottom: 1.5rem; }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
 
         pre {
-            background: #000;
-            border: 1px solid #1a1a1a;
-            color: #333;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
         footer {
             width: 100%;
             text-align: center;
-            padding: 4rem 0;
-            border-top: 1px solid #1a1a1a;
-            font-size: 11px;
+            padding: 60px 0;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            opacity: 0.6;
         }
 
-        footer a { color: #2a2a2a; text-decoration: none; }
-
-        /* ACTIVE STATE (When Cherry is on, we manually show the difference here) */
-        body.patch-active {
-            /* Cherry would programmatically fix this, but for the demo: */
-            color: #888 !important; 
-        }
+        footer a { color: var(--text-color); text-decoration: underline; }
     </style>
 </head>
-<body id="main-body">
+<body>
 
     <nav role="status">
         <span><i id="status-dot"></i> <span id="status-text">OFFLINE</span></span>
-        <button id="toggle-trigger">Execute</button>
+        <button id="toggle-trigger">Patch System</button>
     </nav>
 
     <header>
-        <h1>cherry.js</h1>
+        <h1>cherry.js 🍒</h1>
         <p>A native optimization engine.</p>
     </header>
 
     <article>
         <section>
-            <h2>The Vision</h2>
-            <p>Modern design often sacrifices accessibility for aesthetics. Cherry.js bridges that gap by injecting compliance layers directly into the runtime DOM, ensuring that your preferred color scheme doesn't hinder user experience.</p>
-        </section>
-
-        
-
-        <section>
-            <h2>Technical Repair</h2>
-            <p>Upon execution, the engine traverses the computed style tree. It identifies elements where the contrast ratio falls below 4.5:1 and intelligently shifts the luminance to meet AA standards without breaking the visual theme.</p>
+            <h2>Overview</h2>
+            <p>Cherry.js is a zero-config script that automatically improves website performance, accessibility, and SEO. It acts as a real-time bridge between design intentions and browser requirements.</p>
         </section>
 
         <section>
-            <h2>Usage</h2>
+            <h2>Key Capabilities</h2>
+            <ul>
+                <li><strong>Self-Healing Layouts:</strong> Fixes layout shifts by calculating missing element dimensions on the fly.</li>
+                <li><strong>Dynamic Semantics:</strong> Injects missing ARIA roles and labels into existing HTML.</li>
+                <li><strong>Runtime Optimization:</strong> Defers non-critical resources to ensure the fastest time-to-interactive.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Setup</h2>
+            <p>Simply drop the script into your <code>dist</code> folder and reference it in your document head.</p>
             <pre><code>&lt;script src="dist/cherry.js"&gt;&lt;/script&gt;</code></pre>
         </section>
     </article>
 
     <footer>
-        <p><a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GITHUB</a> / &copy; 2026 CHERRY.JS</p>
+        <p><a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">View on GitHub</a></p>
+        <p>&copy; 2026 cherry.js &mdash; Built with Blossom</p>
     </footer>
 
     <script>
         const trigger = document.getElementById('toggle-trigger');
         const statusText = document.getElementById('status-text');
         const dot = document.getElementById('status-dot');
-        const body = document.getElementById('main-body');
 
         if (window.cherryEnabled) {
             statusText.innerText = "ONLINE";
-            statusText.style.color = "#2ecc71";
-            dot.style.backgroundColor = "#2ecc71";
-            trigger.innerText = "ROLLBACK";
-            // Applying a visual change so you can see it working immediately
-            body.classList.add('patch-active');
+            dot.style.backgroundColor = "#2ecc71"; // Green
+            trigger.innerText = "Rollback";
         }
 
         trigger.onclick = () => {
