@@ -17,101 +17,74 @@
     </script>
 
     <style>
-        /* Layout logic using Blossom variables */
+        /* CRITICAL CLS FIX: Ensure no movement during load */
         html, body {
-            height: 100%;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
             background-color: var(--bg-color);
             color: var(--text-color);
-        }
-
-        /* Subtle Top-Left Status Indicator */
-        nav[role="status"] {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            font-family: monospace;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            z-index: 100;
-        }
-
-        nav[role="status"] span {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            opacity: 0.8;
-        }
-
-        nav[role="status"] i {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ff4444; 
-            display: inline-block;
-        }
-
-        /* Using Blossom's Button semantics for the toggle */
-        nav[role="status"] button {
-            font-size: 1rem;
-            padding: 0.2rem 0.8rem;
-        }
-
-        /* Hero Centering */
-        header {
-            min-height: 100vh;
+            /* Prevent horizontal jitter */
+            overflow-x: hidden; 
             width: 100%;
+        }
+
+        /* Hero Section Fix */
+        header {
+            /* Use dvh for mobile stability */
+            min-height: 100dvh; 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
+            /* Reserve space so footer doesn't jump up */
+            contain: layout; 
         }
 
         header h1 {
-            font-size: clamp(4rem, 15vw, 8rem);
-            margin: 0;
+            /* Lock the line-height to prevent text from "expanding" after font loads */
             line-height: 1;
+            margin: 0;
+            font-size: clamp(4rem, 15vw, 8rem);
         }
 
-        header p {
-            font-size: 1.8rem;
-            opacity: 0.7;
-            margin-top: 1rem;
+        /* Toggle Fix: Positioned outside document flow */
+        nav[role="status"] {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+            /* Fixed width ensures text changing "Offline" to "Online" won't shift things */
+            min-width: 150px; 
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-family: monospace;
         }
 
-        /* Documentation Container */
+        /* Content Container */
         article {
-            max-width: var(--body-width, 38em); /* Aligning with Blossom's width */
+            /* Matches Blossom's internal body width */
+            max-width: 38em; 
             width: 90%;
             margin: 0 auto;
-            padding-bottom: 8rem;
-        }
-
-        section {
-            margin-top: 6rem;
+            /* Prevent content jumping */
+            display: block;
+            min-height: 50vh; 
         }
 
         footer {
-            width: 100%;
+            margin-top: auto;
             text-align: center;
             padding: 4rem 0;
             border-top: 1px solid var(--block-bg);
-            font-size: 1.4rem;
         }
     </style>
 </head>
 <body>
 
     <nav role="status">
-        <span><i id="status-dot"></i> <span id="status-text">OFFLINE</span></span>
+        <span><i id="status-dot" style="width:8px; height:8px; border-radius:50%; background:#ff4444; display:inline-block;"></i> <span id="status-text">OFFLINE</span></span>
         <button id="toggle-trigger">Patch</button>
     </nav>
 
@@ -123,23 +96,17 @@
     <article>
         <section>
             <h2>Overview</h2>
-            <p>Cherry.js is a zero-dependency healing engine designed to bridge the gap between semantic design and technical performance. It identifies and repairs common lighthouse audit failures at runtime.</p>
+            <p>Cherry.js is a zero-dependency healing engine designed to bridge the gap between semantic design and technical performance.</p>
         </section>
 
         <section>
             <h2>Quick Start</h2>
-            <p>Paste the following line into your document <code>head</code> to begin optimization:</p>
-            <pre><code>&lt;script src="https://raw.githack.com/Kaiserrrrrr/cherry/main/dist/cherry.js"&gt;&lt;/script&gt;</code></pre>
+            <pre><code>&lt;script src="dist/cherry.js"&gt;&lt;/script&gt;</code></pre>
         </section>
 
-        <section>
-            <h2>Features</h2>
-            <ul>
-                <li><strong>Accessibility:</strong> Automatic ARIA landmark mapping.</li>
-                <li><strong>Performance:</strong> Real-time Cumulative Layout Shift (CLS) repair.</li>
-                <li><strong>SEO:</strong> Dynamic document hierarchy validation.</li>
-            </ul>
-        </section>
+        <aside>
+            Note: This site automatically adjusts to your preferred system color scheme using Blossom's native dark mode support.
+        </aside>
     </article>
 
     <footer>
@@ -156,7 +123,7 @@
 
         if (window.cherryEnabled) {
             statusText.innerText = "ONLINE";
-            dot.style.backgroundColor = "#2ecc71"; 
+            dot.style.backgroundColor = "#2ecc71";
             trigger.innerText = "Rollback";
         }
 
