@@ -1,4 +1,4 @@
-# 🍒 cherry.js
+# 🍒 Cherry
 
 **A native, zero-config optimization engine for the modern web.**
 
