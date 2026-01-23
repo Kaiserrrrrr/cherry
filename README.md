@@ -6,16 +6,32 @@ Cherry.js is a "healing" library designed to bridge the gap between semantic des
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Installation
 
-Cherry.js is designed to be a "drop-in and forget" solution. No configuration objects or API codes are required.
+**CDN** (*recommended*):
 
-### 1. Installation
-Include the script in your `<head>` to allow it to monitor the DOM early:
+1. Simply add this in your `<head>` tag:
 
-```html
-<script src="<script src="https://cdn.jsdelivr.net/gh/Kaiserrrrrr/cherry/dist/cherry.min.js"></script>"></script>
-```
+    ```html
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Kaiserrrrrr/cherry/dist/cherry.min.js" type="text/css">
+    ```
+
+**Manually**:
+
+1. Download the file:
+
+    ```bash
+    wget "https://cdn.jsdelivr.net/gh/Kaiserrrrrr/cherry/dist/cherry.min.js"
+    ```
+
+    **OR** download directly:
+    [blossom](https://cdn.jsdelivr.net/gh/Kaiserrrrrr/cherry/dist/cherry.min.js)
+
+2. Link it from HTML:
+
+    ```html
+    <link rel="stylesheet" href="cherry.min.js" type="text/css">
+    ```
 
 ### 2. Usage
 Once loaded, the engine initializes an `IdleCallback`. It waits for the browser to be "bored" before performing DOM surgery, ensuring that it never contributes to Total Blocking Time (TBT).
