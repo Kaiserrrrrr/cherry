@@ -82,23 +82,84 @@
     </nav>
 
     <header>
-        <h1>cherry.js 🍒</h1>
+        <h1>cherry.js</h1>
         <p>A native optimization engine.</p>
     </header>
 
-    <article>
-        <section>
-            <h2>Performance vs. Repair</h2>
-            <p>Most scripts hurt performance to fix semantics. Cherry.js uses <code>requestIdleCallback</code> to ensure your main thread stays free for user interactions.</p>
+<article>
+        <section id="philosophy">
+            <h2>Philosophy</h2>
+            <p><strong>Cherry.js</strong> follows the "In-Flight Repair" methodology. Instead of forcing developers to refactor legacy codebases for minor SEO or A11y points, Cherry patches the DOM during the browser's <code>requestIdleCallback</code> periods.</p>
+            <blockquote>
+                "The most performant code is the code that doesn't block the user."
+            </blockquote>
         </section>
-        
+
         
 
-        <section>
-            <h2>Quick Start</h2>
-            <pre><code>&lt;script src="dist/cherry.js" async&gt;&lt;/script&gt;</code></pre>
+        <section id="features">
+            <h2>Feature Coverage</h2>
+            <p>Cherry.js scans for common technical debt and applies surgical fixes without dependencies.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Action</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>A11y</strong></td>
+                        <td>ARIA Label Injection</td>
+                        <td><span class="badge">Accessibility</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Perf</strong></td>
+                        <td>CLS Dimension Healing</td>
+                        <td><span class="badge">Lighthouse</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>SEO</strong></td>
+                        <td>H-Level Normalization</td>
+                        <td><span class="badge">Ranking</span></td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
-    </article>
+
+        <section id="deep-dive">
+            <h2>Core Engine Modules</h2>
+            
+            <details>
+                <summary>Layout Shift Repair (CLS)</summary>
+                <p>Cherry identifies images and video elements missing explicit width/height attributes. It calculates their natural aspect ratio and injects CSS <code>contain-intrinsic-size</code> properties to prevent page jumping.</p>
+            </details>
+
+            <details>
+                <summary>Semantic Upgrading</summary>
+                <p>By traversing the DOM, the engine identifies generic <code>&lt;div&gt;</code> wrappers that function as buttons or navs and upgrades them with the appropriate <code>role</code> and <code>tabindex</code>.</p>
+            </details>
+
+            <details>
+                <summary>Contrast Correction</summary>
+                <p>Using a lightweight luminance algorithm, Cherry checks foreground/background ratios. If an element fails WCAG 2.1, it subtly shifts the HSL value to ensure readability.</p>
+            </details>
+        </section>
+
+        <section id="usage">
+            <h2>Usage & API</h2>
+            <p>Standard integration is zero-config:</p>
+            <pre><code>&lt;script src="dist/cherry.js" async&gt;&lt;/script&gt;</code></pre>
+            <p>For advanced users, Cherry exposes a global <code>window.Cherry</code> object to manually trigger re-scans on single-page applications (SPA):</p>
+            <pre><code>window.Cherry.scan(); // Manual DOM re-scan</code></pre>
+        </section>
+
+        <aside>
+            <strong>Note:</strong> Cherry.js is built to be a invisible helper. It will never interfere with your primary JavaScript logic or event listeners.
+        </aside>
+</article>
 
     <footer>
         <p><a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GitHub</a> &bull; &copy; 2026 cherry.js</p>
