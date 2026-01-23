@@ -3,10 +3,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cherry.js</title>
-    
     <link rel="preconnect" href="https://raw.githack.com">
     <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/main/dist/blossom.css">
-
     <style>
         :root {
             --bg-color: #f9f9f9;
@@ -15,7 +13,6 @@
         @media (prefers-color-scheme: dark) {
             :root { --bg-color: #222222; --text-color: #c9c9c9; }
         }
-
         html, body {
             margin: 0; padding: 0;
             background-color: var(--bg-color);
@@ -24,7 +21,6 @@
             grid-template-columns: 100%;
             justify-items: center;
         }
-
         header {
             width: 100%;
             height: 100dvh; 
@@ -33,20 +29,17 @@
             text-align: center;
             contain: strict; 
         }
-
         header h1 {
             font-size: 8rem;
             margin: 0;
             line-height: 1.1;
         }
-
         article {
             width: 90%;
             max-width: 38em;
             margin: 0 auto;
             min-height: 50vh; 
         }
-
         nav[role="status"] {
             position: fixed;
             top: 2rem; left: 2rem;
@@ -54,14 +47,11 @@
             font-family: monospace;
             display: flex; gap: 1rem;
         }
-        
         body { visibility: visible; opacity: 1; }
     </style>
-
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         window.cherryEnabled = urlParams.get('cherry') === 'true';
-
         if (window.cherryEnabled) {
             const s = document.createElement('script');
             s.src = "dist/cherry.js";
@@ -71,22 +61,18 @@
     </script>
 </head>
 <body>
-
     <nav role="status">
         <span><i id="status-dot" style="width:8px; height:8px; border-radius:50%; background:#ff4444; display:inline-block;"></i> <span id="status-text">OFFLINE</span></span>
         <button id="toggle-trigger">Patch</button>
     </nav>
-
     <header>
         <h1>cherry.js</h1>
         <p>A native optimization engine.</p>
     </header>
-
 <article>
 <section id="features">
             <h2>Feature Coverage</h2>
             <p>Cherry.js scans for common technical debt and applies surgical fixes without dependencies.</p>
-            
             <table>
                 <thead>
                     <tr>
@@ -114,50 +100,40 @@
                 </tbody>
             </table>
         </section>
-
         <section id="deep-dive">
             <h2>Core Engine Modules</h2>
-            
             <details>
                 <summary>Layout Shift Repair (CLS)</summary>
                 <p>Cherry identifies images and video elements missing explicit width/height attributes. It calculates their natural aspect ratio and injects CSS <code>contain-intrinsic-size</code> properties to prevent page jumping.</p>
             </details>
-
             <details>
                 <summary>Semantic Upgrading</summary>
                 <p>By traversing the DOM, the engine identifies generic <code>&lt;div&gt;</code> wrappers that function as buttons or navs and upgrades them with the appropriate <code>role</code> and <code>tabindex</code>.</p>
             </details>
-
             <details>
                 <summary>Contrast Correction</summary>
                 <p>Using a lightweight luminance algorithm, Cherry checks foreground/background ratios. If an element fails WCAG 2.1, it subtly shifts the HSL value to ensure readability.</p>
             </details>
         </section>
-
         <section id="usage">
             <h2>Usage & API</h2>
             <p>Standard integration is zero-config:</p>
             <pre><code>&lt;script src="https://raw.githack.com/Kaiserrrrrr/cherry/main/dist/cherry.js" async&gt;&lt;/script&gt;</code></pre>
         </section>
-
         <aside>
             <strong>Note:</strong> Cherry.js is built to be a invisible helper. It will never interfere with your primary JavaScript logic or event listeners.
         </aside>
 </article>
-
     <footer>
         <p><a href="https://github.com/Kaiserrrrrr/cherry" target="_blank">GitHub</a> &bull; &copy; 2026 cherry.js</p>
     </footer>
-
     <script>
-        // Fast UI Update
         const trigger = document.getElementById('toggle-trigger');
         if (window.cherryEnabled) {
             document.getElementById('status-text').innerText = "ONLINE";
             document.getElementById('status-dot').style.backgroundColor = "#2ecc71";
             trigger.innerText = "Rollback";
         }
-
         trigger.onclick = () => {
             const url = new URL(window.location.href);
             window.cherryEnabled ? url.searchParams.delete('cherry') : url.searchParams.set('cherry', 'true');
