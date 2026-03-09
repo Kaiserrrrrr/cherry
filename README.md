@@ -58,63 +58,53 @@ Most performance tools only *report* errors; Cherry **fixes** them. Built on the
 
 ```mermaid
 graph TD
-    %% Main Entry
+    %% Main Entry - Compact Top Section
     Start([Script Loaded]) --> Check{Ready?}
     Check -- Yes --> Init[cherry.init]
     Check -- No --> Wait[window.load] --> Init
 
-    %% Top Row
+    %% 2x2 Grid Layout
     Init --> Perf_Box
     Init --> Acc_Box
-
-    subgraph Perf_Box [Performance - Blue]
-        direction TB
-        P1[Lazy Load: img & iframe]
-        P2[Set Dimensions: naturalWidth/Height]
-        P3[Events: Force Passive Listeners]
-        P4[Network: Preconnect Google Fonts]
-    end
-
-    subgraph Acc_Box [Accessibility - Purple]
-        direction TB
-        A1[Body: Remove aria-hidden]
-        A2[Inputs: Auto-ID & Visual Labels]
-        A3[Images: Force alt='' if missing]
-        A4[Interaction: 44px Min Tap Target]
-    end
-
-    %% Bottom Row
     Init --> BP_Box
     Init --> SEO_Box
 
-    subgraph BP_Box [Best Practices - Orange]
+    subgraph Perf_Box [Performance]
         direction TB
-        B1[Links: Add noopener/noreferrer]
-        B2[Focus: Clamp Tabindex > 0 to 0]
-        B3[UX: Enable Paste Propagation]
-        B4[Security: Remove Meta-Refresh]
+        P1[Lazy Loading: img/iframe]
+        P2[Dimensions: naturalWidth]
+        P3[Events: Passive Listeners]
+        P4[Preconnect: Google Fonts]
     end
 
-    subgraph SEO_Box [SEO - Green]
+    subgraph Acc_Box [Accessibility]
         direction TB
-        S1[Meta: Charset & Viewport fix]
-        S2[Content: Auto Meta Description]
-        S3[Structure: Inject hidden H1]
-        S4[HTML: Wrap rogue list children]
+        A1[Body: Remove aria-hidden]
+        A2[Inputs: Auto-Labels & IDs]
+        A3[Images: Force Alt Tags]
+        A4[UI: 44px Min Tap Target]
     end
 
-    %% Visual Styling
+    subgraph BP_Box [Best Practices]
+        direction TB
+        B1[Security: noopener/noreferrer]
+        B2[Focus: Reset Tabindex > 0]
+        B3[UX: Stop Paste Blocking]
+        B4[DOM: Remove Meta-Refresh]
+    end
+
+    subgraph SEO_Box [SEO]
+        direction TB
+        S1[Meta: Charset & Viewport]
+        S2[Content: Auto Description]
+        S3[Heading: Hidden H1 Inject]
+        S4[HTML: Fix List Nesting]
+    end
+
     style Start fill:#f9f,stroke:#333
-    style Init fill:#fff,stroke:#333,stroke-width:4px
-    
-    %% Color Coding Categories
-    style Perf_Box fill:#e1f5fe,stroke:#01579b
-    style Acc_Box fill:#f3e5f5,stroke:#4a148c
-    style BP_Box fill:#fff3e0,stroke:#e65100
-    style SEO_Box fill:#e8f5e9,stroke:#1b5e20
+    style Init fill:#6cf,stroke:#333,stroke-width:2px
 
-    %% Individual Node Styling for Detail
-    classDef detail fill:#fff,stroke-width:1px,font-size:12px;
+    classDef detail fill:#fff,stroke-width:1px,font-size:13px;
     class P1,P2,P3,P4,A1,A2,A3,A4,B1,B2,B3,B4,S1,S2,S3,S4 detail
 ```
 
