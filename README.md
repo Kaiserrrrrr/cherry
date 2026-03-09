@@ -59,53 +59,55 @@ Most performance tools only *report* errors; Cherry **fixes** them. Built on the
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Browser
-    participant Cherry as Cherry.js
-    participant DOM as Web Page (DOM)
+    participant B as Browser
+    participant C as Cherry.js
+    participant D as DOM (Web Page)
 
-    Note over Browser, DOM: Script Execution Starts
+    Note over B, D: Script Initialization
     
-    Browser->>Cherry: Load script
-    alt document.readyState === 'complete'
-        Cherry->>Cherry: init()
-    else Document still loading
-        Browser-->>Cherry: window.addEventListener('load')
-        Cherry->>Cherry: init()
+    B->>C: Load script
+    activate C
+    alt if readyState is 'complete'
+        C->>C: init()
+    else wait for 'load' event
+        B-->>C: window.onload
+        C->>C: init()
     end
+    deactivate C
 
-    rect
-        Note over Cherry, DOM: --- PERFORMANCE ---
-        Cherry->>DOM: Set loading='lazy' on img/iframe
-        Cherry->>DOM: Auto-fix naturalWidth/Height on images
-        Cherry->>Browser: Inject 'passive: true' into Event Listeners
-        Cherry->>DOM: Append 'preconnect' links for Google Fonts
-    end
+    Note over C, D: PERFORMANCE
+    activate C
+    C->>D: Set loading="lazy" (img/iframe)
+    C->>D: Set width/height from naturalWidth
+    C->>B: Force {passive: true} on listeners
+    C->>D: Append font preconnect links
+    deactivate C
 
-    rect
-        Note over Cherry, DOM: --- ACCESSIBILITY ---
-        Cherry->>DOM: Remove 'aria-hidden' from body
-        Cherry->>DOM: Generate IDs/Labels for inputs & textareas
-        Cherry->>DOM: Enforce min-size (44px) on small tap targets
-        Cherry->>DOM: Ensure alt='' and aria-labels on links/buttons
-    end
+    Note over C, D: ACCESSIBILITY
+    activate C
+    C->>D: Remove body[aria-hidden]
+    C->>D: Fix input Labels & unique IDs
+    C->>D: Ensure alt="" and aria-labels exist
+    C->>D: Set min-size (44px) for tap targets
+    deactivate C
 
-    rect
-        Note over Cherry, DOM: --- BEST PRACTICES ---
-        Cherry->>DOM: Add 'noopener noreferrer' to target='_blank'
-        Cherry->>DOM: Reset positive tabindex (>0) to 0
-        Cherry->>Browser: Enable paste propagation
-        Cherry->>DOM: Remove 'http-equiv=refresh' tags
-    end
+    Note over C, D: BEST PRACTICES
+    activate C
+    C->>D: Add [rel="noopener"] to _blank links
+    C->>D: Reset tabindex > 0 to 0
+    C->>B: Stop paste event propagation
+    C->>D: Remove <meta http-equiv="refresh">
+    deactivate C
 
-    rect
-        Note over Cherry, DOM: --- SEO ---
-        Cherry->>DOM: Set HTML lang & Charset (UTF-8)
-        Cherry->>DOM: Auto-generate Meta Description & Robots tags
-        Cherry->>DOM: Enforce Viewport scale (max-scale=5)
-        Cherry->>DOM: Inject hidden H1 & Fix invalid list nesting
-    end
+    Note over C, D: SEO & SEMANTICS
+    activate C
+    C->>D: Set html[lang] & charset="UTF-8"
+    C->>D: Generate Description & Robots meta
+    C->>D: Enforce viewport max-scale=5
+    C->>D: Inject hidden H1 & fix list nesting
+    deactivate C
 
-    Note over Browser, DOM: Page Optimized Successfully
+    Note over B, D: Page Optimization Complete
 ```
 
 ---
