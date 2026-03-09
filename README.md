@@ -54,6 +54,59 @@ Most performance tools only *report* errors; Cherry **fixes** them. Built on the
 
 ---
 
+## ❓ How it works
+
+graph TD
+    Start([Script Loaded]) --> CheckState{Document Ready?}
+    CheckState -- Yes --> Init[cherry.init]
+    CheckState -- No --> Wait[Wait for window.load]
+    Wait --> Init
+
+    subgraph Initialization [cherry.init]
+        Init --> Perf[Performance]
+        Init --> Acc[Accessibility]
+        Init --> BP[BestPractices]
+        Init --> SEO[SEO]
+    end
+
+    subgraph Performance_Module [Performance]
+        Perf --> P1[Set img/iframe loading='lazy']
+        Perf --> P2[Auto-fix missing img dimensions]
+        Perf --> P3[Force passive event listeners]
+        Perf --> P4[Inject preconnect links for Fonts]
+    end
+
+    subgraph Accessibility_Module [Accessibility]
+        Acc --> A1[Remove aria-hidden from body]
+        Acc --> A2[Auto-generate IDs & Labels for inputs]
+        Acc --> A3[Ensure alt tags on images]
+        Acc --> A4[Set aria-labels for empty links/btns]
+        Acc --> A5[Enforce 44px min-tap target size]
+    end
+
+    subgraph BestPractices_Module [Best Practices]
+        BP --> B1[Add noopener to target='_blank']
+        BP --> B2[Reset positive tabindexes to 0]
+        BP --> B3[Stop paste event propagation]
+        BP --> B4[Remove meta-refresh tags]
+    end
+
+    subgraph SEO_Module [SEO]
+        SEO --> S1[Set HTML lang='en' if missing]
+        SEO --> S2[Ensure charset UTF-8]
+        SEO --> S3[Auto-generate Meta Description/Robots]
+        SEO --> S4[Enforce Viewport settings]
+        SEO --> S5[Inject hidden H1 if missing]
+        SEO --> S6[Fix invalid list nesting]
+    end
+
+    Performance_Module --> End([Optimization Complete])
+    Accessibility_Module --> End
+    BestPractices_Module --> End
+    SEO_Module --> End
+
+---
+
 ## 🎨 Built for Blossom
 
 Cherry.js is the definitive technical companion for **[Blossom.css](https://github.com/Kaiserrrrrr/blossom)**. While Blossom provides the visual framework and semantic baseline, Cherry handles the technical enforcement:
