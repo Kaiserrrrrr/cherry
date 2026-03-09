@@ -43,15 +43,6 @@ Most performance tools only *report* errors; Cherry **fixes** them. Built on the
     <script src="cherry.min.js" async></script>
     ```
 
-## 🛠 Features & Fixes
-
-| Patch | Action |
-| :--- | :--- |
-| **Accessibility** | Auto-generates `aria-labels` for icon-buttons and repairs `tabindex` hierarchies. |
-| **CLS Patch** | Calculates and injects missing image/media dimensions to stabilize layout. |
-| **SEO Audit** | Validates heading hierarchy (H1) and dynamically generates meta-descriptors. |
-| **Security** | Secures `target="_blank"` links with `rel="noopener"` to prevent tab-nabbing. |
-
 ---
 
 ## ❓ How it works
@@ -75,7 +66,7 @@ sequenceDiagram
     end
     deactivate C
 
-    Note over C, D: PERFORMANCE
+    Note over C, D: Performance
     activate C
     C->>D: Set loading="lazy" (img/iframe)
     C->>D: Set width/height from naturalWidth
@@ -83,7 +74,7 @@ sequenceDiagram
     C->>D: Append font preconnect links
     deactivate C
 
-    Note over C, D: ACCESSIBILITY
+    Note over C, D: Accessibility
     activate C
     C->>D: Remove body[aria-hidden]
     C->>D: Fix input Labels & unique IDs
@@ -91,7 +82,7 @@ sequenceDiagram
     C->>D: Set min-size (44px) for tap targets
     deactivate C
 
-    Note over C, D: BEST PRACTICES
+    Note over C, D: Best Practices
     activate C
     C->>D: Add [rel="noopener"] to _blank links
     C->>D: Reset tabindex > 0 to 0
@@ -99,7 +90,7 @@ sequenceDiagram
     C->>D: Remove <meta http-equiv="refresh">
     deactivate C
 
-    Note over C, D: SEO & SEMANTICS
+    Note over C, D: SEO
     activate C
     C->>D: Set html[lang] & charset="UTF-8"
     C->>D: Generate Description & Robots meta
