@@ -57,55 +57,54 @@ Most performance tools only *report* errors; Cherry **fixes** them. Built on the
 ## ❓ How it works
 
 ```mermaid
-graph TD
-    %% Main Entry - Compact Top Section
-    Start([Script Loaded]) --> Check{Ready?}
-    Check -- Yes --> Init[cherry.init]
-    Check -- No --> Wait[window.load] --> Init
+sequenceDiagram
+    autonumber
+    participant Browser
+    participant Cherry as Cherry.js
+    participant DOM as Web Page (DOM)
 
-    %% 2x2 Grid Layout
-    Init --> Perf_Box
-    Init --> Acc_Box
-    Init --> BP_Box
-    Init --> SEO_Box
-
-    subgraph Perf_Box [Performance]
-        direction TB
-        P1[Lazy Loading: img/iframe]
-        P2[Dimensions: naturalWidth]
-        P3[Events: Passive Listeners]
-        P4[Preconnect: Google Fonts]
+    Note over Browser, DOM: Script Execution Starts
+    
+    Browser->>Cherry: Load script
+    alt document.readyState === 'complete'
+        Cherry->>Cherry: init()
+    else Document still loading
+        Browser-->>Cherry: window.addEventListener('load')
+        Cherry->>Cherry: init()
     end
 
-    subgraph Acc_Box [Accessibility]
-        direction TB
-        A1[Body: Remove aria-hidden]
-        A2[Inputs: Auto-Labels & IDs]
-        A3[Images: Force Alt Tags]
-        A4[UI: 44px Min Tap Target]
+    rect rgb(225, 245, 254)
+        Note over Cherry, DOM: --- PERFORMANCE ---
+        Cherry->>DOM: Set loading='lazy' on img/iframe
+        Cherry->>DOM: Auto-fix naturalWidth/Height on images
+        Cherry->>Browser: Inject 'passive: true' into Event Listeners
+        Cherry->>DOM: Append 'preconnect' links for Google Fonts
     end
 
-    subgraph BP_Box [Best Practices]
-        direction TB
-        B1[Security: noopener/noreferrer]
-        B2[Focus: Reset Tabindex > 0]
-        B3[UX: Stop Paste Blocking]
-        B4[DOM: Remove Meta-Refresh]
+    rect rgb(243, 229, 245)
+        Note over Cherry, DOM: --- ACCESSIBILITY ---
+        Cherry->>DOM: Remove 'aria-hidden' from body
+        Cherry->>DOM: Generate IDs/Labels for inputs & textareas
+        Cherry->>DOM: Enforce min-size (44px) on small tap targets
+        Cherry->>DOM: Ensure alt='' and aria-labels on links/buttons
     end
 
-    subgraph SEO_Box [SEO]
-        direction TB
-        S1[Meta: Charset & Viewport]
-        S2[Content: Auto Description]
-        S3[Heading: Hidden H1 Inject]
-        S4[HTML: Fix List Nesting]
+    rect rgb(255, 243, 224)
+        Note over Cherry, DOM: --- BEST PRACTICES ---
+        Cherry->>DOM: Add 'noopener noreferrer' to target='_blank'
+        Cherry->>DOM: Reset positive tabindex (>0) to 0
+        Cherry->>Browser: Enable paste propagation
+        Cherry->>DOM: Remove 'http-equiv=refresh' tags
     end
 
-    style Start fill:#f9f,stroke:#333
-    style Init fill:#6cf,stroke:#333,stroke-width:2px
+    rect rgb(232, 245, 233)
+        Note over Cherry, DOM: --- SEO ---
+        Cherry->>DOM: Set HTML lang & Charset (UTF-8)
+        Cherry->>DOM: Auto-generate Meta Description & Robots tags
+        Cherry->>DOM: Enforce Viewport scale (max-scale=5)
+        Cherry->>DOM: Inject hidden H1 & Fix invalid list nesting
+    end
 
-    classDef detail fill:#fff,stroke-width:1px,font-size:13px;
-    class P1,P2,P3,P4,A1,A2,A3,A4,B1,B2,B3,B4,S1,S2,S3,S4 detail
 ```
 
 ---
