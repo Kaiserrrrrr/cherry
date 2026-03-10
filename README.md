@@ -123,7 +123,7 @@ Cherry.js is the definitive technical companion for **[Blossom.css](https://gith
 
 ## 📜 License
 
-&copy; Cherry 2026. Code released under the [MIT license](https://github.com/Kaiserrrrrr/cherry/blob/master/LICENSE).
+&copy; Cherry 2026. Code released under the [GNU General Public License v3.0](https://github.com/Kaiserrrrrr/cherry/blob/master/LICENSE).
 
 ---
 Built with 🍒 and Blossom.
