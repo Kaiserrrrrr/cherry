@@ -2,17 +2,16 @@
 
 **A native, zero-config optimization engine for the modern web.**
 
-Cherry.js is a "healing" library designed to bridge the gap between semantic design and technical performance. It identifies common accessibility gaps, SEO omissions, and performance bottlenecks (like Cumulative Layout Shift) and patches them at runtime during browser idle periods.
+Cherry.js is a library designed to bridge the gap between semantic design and technical performance. It identifies common accessibility gaps, SEO omissions, and performance bottlenecks (like Cumulative Layout Shift) and patches them at runtime during browser idle periods.
 
 ---
 
 ## 🌟 Why Cherry?
 
-Most performance tools only *report* errors; Cherry **fixes** them. Built on the principle of **"In-Flight Repair"**, it offers:
+cherry builds upon the on-the-fly philosophy, ensuring that sites remain optimized without any trade-off:
 
 * **Zero Technical Debt:** Patches legacy HTML for WCAG and SEO compliance without changing a line of source code.
 * **Idle-Time Execution:** Utilizes `requestIdleCallback` to perform DOM surgery only when the browser is idle, protecting your Total Blocking Time (TBT).
-* **Aesthetic Preservation:** Allows designers to focus on the visual layer while the engine handles the technical enforcement underneath.
 
 ---
 
@@ -40,7 +39,7 @@ Most performance tools only *report* errors; Cherry **fixes** them. Built on the
 2. Link it from HTML:
 
     ```html
-    <script src="cherry.min.js" async></script>
+    <script src="cherry.min.js"defer></script>
     ```
 
 ---
@@ -105,11 +104,7 @@ sequenceDiagram
 
 ## 🎨 Built for Blossom
 
-Cherry.js is the definitive technical companion for **[Blossom.css](https://github.com/kaiserrrrrr/blossom)**. While Blossom provides the visual framework and semantic baseline, Cherry handles the technical enforcement:
-
-* **Layout Stability:** Respects Blossom's centering logic (`max-width` and `margin: auto`) while preventing layout jumps.
-* **Theme Native:** Injected UI elements automatically inherit Blossom’s CSS variables (`--bg-color`, `--text-color`, `--btn-bg`).
-* **Responsive Dark Mode:** Fully compatible with Blossom’s native `@media (prefers-color-scheme: dark)` root variables.
+Cherry.js is the technical companion for **[Blossom.css](https://github.com/kaiserrrrrr/blossom)**. While Blossom provides the visual framework and semantic baseline, Cherry handles the technical enforcement
 
 ---
 
