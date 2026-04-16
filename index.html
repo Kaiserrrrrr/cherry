@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cherry.js</title>
     <link rel="preconnect" href="https://raw.githack.com">
-    <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/main/dist/blossom.css">
+    <link rel="stylesheet" href="https://raw.githack.com/Kaiserrrrrr/blossom/src/blossom.css">
     <style>
         :root {
             --bg-color: #f9f9f9;
@@ -54,7 +54,7 @@
         window.cherryEnabled = urlParams.get('cherry') === 'true';
         if (window.cherryEnabled) {
             const s = document.createElement('script');
-            s.src = "dist/cherry.js";
+            s.src = "src/cherry.js";
             s.async = true;
             document.head.appendChild(s);
         }
