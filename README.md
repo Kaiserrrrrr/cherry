@@ -39,7 +39,7 @@ cherry builds upon the on-the-fly philosophy, ensuring that sites remain optimiz
 2. Link it from HTML:
 
     ```html
-    <script src="cherry.min.js"defer></script>
+    <script src="cherry.min.js" defer></script>
     ```
 
 ---
