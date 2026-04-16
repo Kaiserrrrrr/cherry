@@ -114,5 +114,3 @@ sequenceDiagram
 
 &copy; Cherry 2026. Code released under the [GNU General Public License v3.0](https://github.com/kaiserrrrrr/cherry/blob/master/LICENSE).
 
----
-Built with 🍒 and Blossom.
