@@ -23,7 +23,7 @@ Most performance tools only *report* errors; Cherry **fixes** them. Built on the
 1. Simply add this in your `<head>` tag:
 
     ```html
-    <script src="https://cdn.jsdelivr.net/gh/kaiserrrrrr/cherry/src/cherry.min.js" async></script>
+    <script src="https://cdn.jsdelivr.net/gh/kaiserrrrrr/cherry/src/cherry.min.js" defer></script>
     ```
 
 **Manually**:
