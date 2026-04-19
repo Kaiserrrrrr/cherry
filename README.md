@@ -1,6 +1,6 @@
 # 🍒 Cherry
 
-**A native, zero-config optimization engine for the modern web.**
+**A native, zero-config optimization engine for the web.**
 
 Cherry.js is a library designed to bridge the gap between semantic design and technical performance. It identifies common accessibility gaps, SEO omissions, and performance bottlenecks (like Cumulative Layout Shift) and patches them at runtime during browser idle periods.
 
