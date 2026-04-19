@@ -1,6 +1,6 @@
 /* Cherry.js v1.0.0
  * ================
- * Semantic js script for frontend optimization
+ * A native, zero-config optimization engine for the web
  * Project: https://github.com/kaiserrrrrr/cherry
  */
 
